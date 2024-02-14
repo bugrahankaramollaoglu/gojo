@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/color1"
     android:layout_height="match_parent"
+    android:background="@color/color1"
     tools:context=".MainActivity">
 
     <ImageView
@@ -71,5 +70,14 @@
             android:textSize="20sp" />
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/bugra"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="15dp"
+        android:src="@drawable/bugra" />
 
 </RelativeLayout>
