@@ -5,7 +5,11 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context.MODE_PRIVATE
 import android.database.sqlite.SQLiteDatabase
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.style.StyleSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +17,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.bugrahankaramollaoglu.gojo.databinding.FragmentAddTaskBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -25,6 +30,10 @@ class AddTaskFragment : Fragment() {
     private lateinit var binding: FragmentAddTaskBinding
     var database: SQLiteDatabase? = null
     var currentUser: FirebaseUser? = null
+    var fiveMinute: String = "5 dakika önceden hatırlat"
+    var fifteenMinute: String = "15 dakika önceden hatırlat"
+    var thirtyMinute: String = "30 dakika önceden hatırlat"
+    var sixtyMinute: String = "60 dakika önceden hatırlat"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +45,9 @@ class AddTaskFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAddTaskBinding.inflate(inflater, container, false)
+
+        (activity as AppCompatActivity).supportActionBar?.show()
+
         return binding.root
     }
 
@@ -43,6 +55,8 @@ class AddTaskFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         currentUser = FirebaseAuth.getInstance().currentUser
+
+        (activity as AppCompatActivity).supportActionBar?.show()
 
         binding.gojoText.setOnClickListener {
             logDatabaseContents()
@@ -62,6 +76,10 @@ class AddTaskFragment : Fragment() {
 
         binding.saveButton.setOnClickListener {
             saveTask()
+        }
+
+        binding.goBack.setOnClickListener {
+            requireActivity().onBackPressed()
         }
 
     }
@@ -122,15 +140,57 @@ class AddTaskFragment : Fragment() {
 
         popupMenu.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.action_option1 -> {
+                R.id.option_5mn -> {
+
+                    val spannableFive = SpannableStringBuilder(fiveMinute)
+                    val boldSpan = StyleSpan(Typeface.BOLD)
+
+                    spannableFive.setSpan(boldSpan, 0, 1, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
+                    binding.reminder.setText(spannableFive)
 
                     true
                 }
 
-                R.id.action_option2 -> {
+                R.id.option_15mn -> {
+                    val spannableFifteen = SpannableStringBuilder(fifteenMinute)
+                    val boldSpan = StyleSpan(Typeface.BOLD)
+
+                    spannableFifteen.setSpan(
+                        boldSpan,
+                        0,
+                        2,
+                        SpannableString.SPAN_INCLUSIVE_INCLUSIVE
+                    )
+                    binding.reminder.setText(spannableFifteen)
+
 
                     true
                 }
+
+                R.id.option_30mn -> {
+                    val spannableThirty = SpannableStringBuilder(thirtyMinute)
+                    val boldSpan = StyleSpan(Typeface.BOLD)
+
+                    spannableThirty.setSpan(
+                        boldSpan,
+                        0,
+                        2,
+                        SpannableString.SPAN_INCLUSIVE_INCLUSIVE
+                    )
+                    binding.reminder.setText(spannableThirty)
+
+                    true
+                }
+
+                R.id.option_60mn -> {
+                    val spannableSixty = SpannableStringBuilder(sixtyMinute)
+                    val boldSpan = StyleSpan(Typeface.BOLD)
+
+                    spannableSixty.setSpan(boldSpan, 0, 2, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
+                    binding.reminder.setText(spannableSixty)
+                    true
+                }
+
 
                 else -> false
             }

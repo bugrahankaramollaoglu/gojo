@@ -26,15 +26,14 @@ class TasksFragment : Fragment() {
     ): View? {
         binding = FragmentTasksBinding.inflate(inflater, container, false)
 
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tasksOptions.setOnClickListener {
-            showTasksOption(it)
-        }
+
     }
 
     private fun showTasksOption(view: View) {
