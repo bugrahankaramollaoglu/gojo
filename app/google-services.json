@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "944302756635",
-    "project_id": "gojo-java",
-    "storage_bucket": "gojo-java.appspot.com"
+    "project_number": "140266509816",
+    "project_id": "gojo-bf2bb",
+    "storage_bucket": "gojo-bf2bb.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:944302756635:android:dd32cd4939c42ed33979be",
+        "mobilesdk_app_id": "1:140266509816:android:4308dce60fe8222c0d720d",
         "android_client_info": {
-          "package_name": "com.bugrahankaramollaoglu.gojo_java"
+          "package_name": "com.bugrahankaramollaoglu.gojo"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCp6UT86-s1UFBx91T2MKqCLiqASuSPhWE"
+          "current_key": "AIzaSyD0sNq2R872DiKWm3MR27sMC2PJ-tTvwR0"
         }
       ],
       "services": {
