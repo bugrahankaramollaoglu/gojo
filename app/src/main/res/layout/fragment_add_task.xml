@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color1"
+    tools:context=".AddTaskFragment">
+
+    <TextView
+        android:id="@+id/gojoText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:clickable="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="25dp"
+        android:text="gojo"
+        android:textColor="@color/white"
+        android:textSize="25sp" />
+
+    <ImageView
+        android:id="@+id/goBack"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/back_trunk" />
+
+    <EditText
+        android:id="@+id/taskHeaderText"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:background="@drawable/input_rectangle"
+        android:ems="10"
+        android:hint="Task Title *"
+        android:inputType="text"
+        android:padding="15dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="17sp" />
+
+
+    <EditText
+        android:id="@+id/taskDetailsText"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/taskHeaderText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input_rectangle"
+        android:ems="10"
+        android:hint="Details"
+        android:inputType="textMultiLine"
+        android:maxLines="5"
+        android:paddingStart="15dp"
+        android:paddingTop="30dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="30dp"
+
+        android:scrollbarSize="2dp"
+        android:scrollbarStyle="insideInset"
+        android:scrollbars="vertical"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="17sp" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider"
+        android:layout_width="200dp"
+        android:layout_height="1dp"
+        android:layout_below="@id/taskDetailsText"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="30dp"
+        app:dividerColor="@color/white" />
+
+    <EditText
+        android:id="@+id/taskDueDate"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        android:layout_alignStart="@id/taskDetailsText"
+        android:background="@drawable/input_rectangle"
+        android:clickable="true"
+        android:drawableStart="@drawable/date"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:hint="Date"
+        android:inputType="date"
+        android:padding="17dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="17sp" />
+
+
+    <EditText
+        android:id="@+id/taskDueTime"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        android:layout_alignEnd="@id/taskDetailsText"
+        android:layout_marginStart="10dp"
+        android:layout_toRightOf="@id/taskDueDate"
+        android:background="@drawable/input_rectangle"
+        android:clickable="true"
+        android:drawableStart="@drawable/time"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:hint="Time"
+        android:inputType="date"
+        android:padding="17dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="17sp" />
+
+    <EditText
+        android:id="@+id/reminder"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/taskDueDate"
+        android:layout_alignStart="@id/taskDueDate"
+        android:layout_alignEnd="@id/taskDueTime"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@id/taskDueDate"
+        android:background="@drawable/input_rectangle"
+        android:clickable="true"
+        android:drawableStart="@drawable/notification"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:hint="Remind me X minutes before"
+        android:inputType="date"
+        android:padding="17dp"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="15sp" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider2"
+        android:layout_width="300dp"
+        android:layout_height="1dp"
+        android:layout_below="@id/reminder"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="50dp"
+        app:dividerColor="@color/white" />
+
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider2"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/white"
+        android:text="KAYDET"
+        android:textColor="@color/black" />
+
+
+</RelativeLayout>
