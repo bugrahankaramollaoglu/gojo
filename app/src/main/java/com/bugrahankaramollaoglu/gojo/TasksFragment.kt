@@ -27,6 +27,7 @@ class TasksFragment : Fragment() {
         binding = FragmentTasksBinding.inflate(inflater, container, false)
 
 
+
         return binding.root
     }
 
@@ -51,7 +52,6 @@ class TasksFragment : Fragment() {
             }
         }
         pop_up_menu.show()
-
     }
 
 

@@ -1,13 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="15dp">
 
-    <CheckBox
-        android:id="@+id/recyclerViewTextView"
-        android:layout_width="match_parent"
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:text="deneme"
-        android:textSize="24dp" />
-</LinearLayout>
+        android:layout_centerHorizontal="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color3"
+            android:padding="20dp">
+
+            <CheckBox
+                android:id="@+id/rw_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="deneme title"
+                android:textSize="24dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/rw_taskDeadLine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rw_title"
+                android:drawableStart="@drawable/notification"
+                android:drawablePadding="10dp"
+                android:text="4 days left!"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="italic|bold" />
+
+            <TextView
+                android:id="@+id/rw_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rw_title"
+                android:layout_alignStart="@id/rw_title"
+                android:maxWidth="230dp"
+                android:text="Details Details Details Details Details Details Details Details Details Details Details Details Details Details Details Details Details "
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:visibility="gone" />
+
+
+        </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</RelativeLayout>
