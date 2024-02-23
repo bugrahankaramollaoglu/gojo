@@ -56,10 +56,6 @@ class AddTaskFragment : Fragment() {
 
         (activity as AppCompatActivity).supportActionBar?.show()
 
-        binding.gojoText.setOnClickListener {
-            logDatabaseContents()
-        }
-
         binding.taskDueDate.setOnClickListener {
             showDatePicker()
         }
@@ -76,9 +72,7 @@ class AddTaskFragment : Fragment() {
             saveTask()
         }
 
-        binding.goBack.setOnClickListener {
-            requireActivity().onBackPressed()
-        }
+
 
     }
 

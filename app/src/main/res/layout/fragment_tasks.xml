@@ -6,7 +6,14 @@
     android:layout_height="match_parent"
     android:background="@color/color1"
     tools:context=".TasksFragment">
-    
+
+    <ImageView
+        android:id="@+id/goBack"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="22dp"
+        android:src="@drawable/back_trunk" />
 
     <TextView
         android:id="@+id/gojoText"
@@ -18,16 +25,16 @@
         android:maxWidth="250dp"
         android:text="gojo"
         android:textColor="@color/white"
-        android:textSize="22sp"
+        android:textSize="25sp"
         android:textStyle="bold" />
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/divider"
-        android:layout_width="250dp"
+        android:layout_width="220dp"
         android:layout_height="1dp"
         android:layout_below="@id/gojoText"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         app:dividerColor="@color/white" />
 
 

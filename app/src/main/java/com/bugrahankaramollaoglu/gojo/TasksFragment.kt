@@ -30,7 +30,7 @@ class TasksFragment : Fragment() {
 
         val currentUser = mAuth.currentUser
         currentUser?.let {
-            binding.userEmail.setText(currentUser.email)
+//            binding.userEmail.setText(currentUser.email)
         }
 
 
@@ -45,6 +45,10 @@ class TasksFragment : Fragment() {
             logout()
         }
 
+        binding.goBack.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.navigation_tasks -> {
@@ -53,18 +57,21 @@ class TasksFragment : Fragment() {
                     mainActivity.launchTaskFragment(TasksTasksFragment())
                     true
                 }
-                R.id.navigation_dashboard -> {
+
+                R.id.navigation_add -> {
                     // Handle Dashboard item click
                     // You can navigate to the DashboardFragment or perform any action you want
-//                    mainActivity.launchFragment(DashboardFragment())
+                    mainActivity.launchTaskFragment(AddTaskFragment())
                     true
                 }
+
                 R.id.navigation_stats -> {
                     // Handle Notifications item click
                     // You can navigate to the NotificationsFragment or perform any action you want
                     mainActivity.launchTaskFragment(TasksStatsFragment())
                     true
                 }
+
                 else -> false
             }
         }

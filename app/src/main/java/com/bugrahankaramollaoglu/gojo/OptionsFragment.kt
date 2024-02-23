@@ -39,7 +39,7 @@ class OptionsFragment : Fragment() {
         val listView = view.findViewById<ListView>(R.id.listView)
 
         val settingsList = listOf(
-            Option(R.drawable.font, "Yazı Tipi Değiştir", R.drawable.right),
+            Option(R.drawable.font, "Yazı Tipini Değiştir", R.drawable.right),
             Option(R.drawable.baseline_dark_mode_24, "Temayı Değiştir", R.drawable.right),
             Option(R.drawable.avatar2, "Kullanıcıları Gör", R.drawable.right),
             Option(R.drawable.reset2, "Fabrika Ayarları", R.drawable.right),
@@ -53,7 +53,7 @@ class OptionsFragment : Fragment() {
             val selectedItem = adapter.getItem(position) as Option
             when (selectedItem.text) {
 
-                "Change Font" -> {
+                "Yazı Tipini Değiştir" -> {
 
                     Toast.makeText(
                         requireContext(),
@@ -63,7 +63,7 @@ class OptionsFragment : Fragment() {
 
                 }
 
-                "Change Theme" -> {
+                "Temayı Değiştir" -> {
 
                     Toast.makeText(
                         requireContext(),
@@ -74,7 +74,7 @@ class OptionsFragment : Fragment() {
 
                 }
 
-                "See Users" -> {
+                "Kullanıcıları Gör" -> {
 
                     Toast.makeText(requireContext(), "you clciked on see users", Toast.LENGTH_SHORT)
                         .show()
@@ -82,7 +82,14 @@ class OptionsFragment : Fragment() {
 
                 }
 
-                "Factory Reset" -> {
+                "Fabrika Ayarları" -> {
+
+                    Toast.makeText(requireContext(), "you clciked on factory", Toast.LENGTH_SHORT)
+                        .show()
+
+                }
+
+                "Hakkımda" -> {
 
                     Toast.makeText(requireContext(), "you clciked on factory", Toast.LENGTH_SHORT)
                         .show()

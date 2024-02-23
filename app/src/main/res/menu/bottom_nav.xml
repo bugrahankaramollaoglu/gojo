@@ -3,13 +3,13 @@
     <item
         android:id="@+id/navigation_tasks"
         android:icon="@drawable/task2"
-        android:title="Tasks" />
+        android:title="Görevler" />
     <item
-        android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/notification"
-        android:title="Dashboard" />
+        android:id="@+id/navigation_add"
+        android:icon="@drawable/add"
+        android:title="Ekle" />
     <item
         android:id="@+id/navigation_stats"
         android:icon="@drawable/stats2"
-        android:title="Stats" />
+        android:title="İstatistikler" />
 </menu>

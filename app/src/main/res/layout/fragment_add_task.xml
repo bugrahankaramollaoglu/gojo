@@ -1,41 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color1"
     tools:context=".AddTaskFragment">
 
-    <TextView
-        android:id="@+id/gojoText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="25dp"
-        android:clickable="true"
-        android:text="gojo"
-        android:textColor="@color/white"
-        android:textSize="25sp" />
-
-    <ImageView
-        android:id="@+id/goBack"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/back_trunk" />
 
     <EditText
         android:id="@+id/taskHeaderText"
         android:layout_width="250dp"
-
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="75dp"
         android:background="@drawable/input_rectangle"
         android:elevation="15dp"
         android:ems="10"
@@ -73,22 +50,17 @@
         android:textColorHint="@color/black"
         android:textSize="17sp" />
 
-    <com.google.android.material.divider.MaterialDivider
-        android:id="@+id/divider"
-        android:layout_width="200dp"
-        android:layout_height="1dp"
-        android:layout_below="@id/taskDetailsText"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="30dp"
-        app:dividerColor="@color/white" />
 
     <EditText
         android:id="@+id/taskDueDate"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/divider"
+        android:layout_below="@id/taskDetailsText"
+
 
         android:layout_alignStart="@id/taskDetailsText"
+
+        android:layout_marginTop="25dp"
         android:background="@drawable/input_rectangle"
         android:clickable="true"
         android:drawableStart="@drawable/date"
@@ -110,9 +82,10 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
 
-        android:layout_below="@id/divider"
+        android:layout_below="@id/taskDetailsText"
         android:layout_alignEnd="@id/taskDetailsText"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="25dp"
         android:layout_toRightOf="@id/taskDueDate"
         android:background="@drawable/input_rectangle"
         android:clickable="true"
@@ -136,7 +109,7 @@
         android:layout_below="@id/taskDueDate"
         android:layout_alignStart="@id/taskDueDate"
         android:layout_alignEnd="@id/taskDueTime"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="25dp"
         android:layout_toRightOf="@id/taskDueDate"
         android:background="@drawable/input_rectangle"
         android:clickable="true"
@@ -154,29 +127,31 @@
         android:textColorHint="@color/black"
         android:textSize="15sp" />
 
-    <com.google.android.material.divider.MaterialDivider
-        android:id="@+id/divider2"
-        android:layout_width="300dp"
-        android:layout_height="1dp"
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/saveButton"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/reminder"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="50dp"
-        app:dividerColor="@color/white" />
-
-
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/divider2"
-        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
         android:backgroundTint="@color/white"
         android:elevation="15dp"
         android:text="KAYDET"
         android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/resetButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RESET"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/chunky"
+        android:textAlignment="center"
+        android:layout_below="@id/saveButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
 
 
 </RelativeLayout>
