@@ -37,4 +37,12 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 
+    fun launchTaskFragment(taskFragment: Fragment) {
+        val fragment_manager = supportFragmentManager
+        val transaction = fragment_manager.beginTransaction()
+        transaction.replace(R.id.tasksFrame, taskFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
 }

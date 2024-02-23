@@ -6,34 +6,26 @@
     android:layout_height="match_parent"
     android:background="@color/color1"
     tools:context=".TasksFragment">
-
-    <ImageView
-        android:id="@+id/avatar"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="25dp"
-        android:src="@drawable/man" />
+    
 
     <TextView
-        android:id="@+id/userEmail"
+        android:id="@+id/gojoText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:fontFamily="@font/aller"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:text="deneme@hotmail.com"
-        android:textColor="@color/white" />
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/chillight"
+        android:maxWidth="250dp"
+        android:text="gojo"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textStyle="bold" />
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/divider"
         android:layout_width="250dp"
         android:layout_height="1dp"
-        android:layout_below="@id/userEmail"
+        android:layout_below="@id/gojoText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         app:dividerColor="@color/white" />
@@ -57,14 +49,6 @@
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_navigation"
         android:layout_below="@id/divider">
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="30dp" />
-
 
     </FrameLayout>
 

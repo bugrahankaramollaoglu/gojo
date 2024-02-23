@@ -45,18 +45,46 @@ class TasksFragment : Fragment() {
             logout()
         }
 
+        binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.navigation_tasks -> {
+                    // Handle Home item click
+                    // You can navigate to the HomeFragment or perform any action you want
+                    mainActivity.launchTaskFragment(TasksTasksFragment())
+                    true
+                }
+                R.id.navigation_dashboard -> {
+                    // Handle Dashboard item click
+                    // You can navigate to the DashboardFragment or perform any action you want
+//                    mainActivity.launchFragment(DashboardFragment())
+                    true
+                }
+                R.id.navigation_stats -> {
+                    // Handle Notifications item click
+                    // You can navigate to the NotificationsFragment or perform any action you want
+                    mainActivity.launchTaskFragment(TasksStatsFragment())
+                    true
+                }
+                else -> false
+            }
+        }
+
+
     }
 
 
     fun logout() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("WARNING")
-        builder.setMessage("Are you sure you want to log out?")
-        builder.setPositiveButton("Yes") { dialogInterface, _ ->
+        builder.setTitle("DİKKAT")
+        builder.setMessage("Hesabınızdan Çıkış Yapmak İstiyor Musunuz?")
+        builder.setPositiveButton("Evet") { dialogInterface, _ ->
             FirebaseAuth.getInstance().signOut()
             mainActivity.launchFragment(HomeFragment())
         }
-        builder.setNegativeButton("No") { dialogInterface, _ -> }
+        builder.setNegativeButton("Hayır") { dialogInterface, _ ->
+
+
+        }
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
