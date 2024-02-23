@@ -16,10 +16,22 @@ class MainActivity : AppCompatActivity() {
         launchFragment(HomeFragment())
     }
 
-
     fun launchFragment(fragment: Fragment) {
         val fragment_manager = supportFragmentManager
         val transaction = fragment_manager.beginTransaction()
+        transaction.replace(R.id.fragment_container, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
+    fun launchAnimatedFragment(fragment: Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.setCustomAnimations(
+            R.anim.slide_in_right,   // Enter from right
+            R.anim.slide_out_left,   // Exit to left
+            R.anim.slide_in_left,    // Pop enter from left
+            R.anim.slide_out_right   // Pop exit to right
+        )
         transaction.replace(R.id.fragment_container, fragment)
         transaction.addToBackStack(null)
         transaction.commit()

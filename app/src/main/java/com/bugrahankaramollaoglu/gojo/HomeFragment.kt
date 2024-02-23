@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bugrahankaramollaoglu.gojo.databinding.FragmentHomeBinding
@@ -78,8 +77,7 @@ class HomeFragment : Fragment() {
                     requireContext(),
                     "Email and password cannot be empty!",
                     Toast.LENGTH_SHORT
-                )
-                    .show()
+                ).show()
             } else {
                 auth!!.createUserWithEmailAndPassword(email, password).addOnSuccessListener {
                 }.addOnFailureListener { e ->
@@ -93,33 +91,8 @@ class HomeFragment : Fragment() {
         }
 
         binding.homeOptions.setOnClickListener {
-            show_home_options(it)
+            mainActivity.launchAnimatedFragment(OptionsFragment())
         }
     }
-
-    private fun show_home_options(view: View) {
-        val pop_up_menu = PopupMenu(requireContext(), view)
-        pop_up_menu.inflate(R.menu.home_options)
-
-        pop_up_menu.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.action_option1 -> {
-
-                    mainActivity.launchFragment(AddTaskFragment())
-                    true
-                }
-
-                R.id.action_option2 -> {
-
-                    true
-                }
-
-                else -> false
-            }
-        }
-        pop_up_menu.show()
-
-    }
-
 
 }

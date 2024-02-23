@@ -147,6 +147,7 @@
         android:layout_below="@id/signinButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="150dp"
+        android:fontFamily="@font/aller"
         android:text="@string/proverb"
         android:textColor="@color/white"
         android:textSize="17sp"
@@ -159,9 +160,10 @@
         android:layout_below="@id/proverb"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
+        android:fontFamily="@font/san_francisco"
         android:text="A. Süheyl Ünver"
         android:textColor="@color/white"
-        android:textSize="15sp"
+        android:textSize="17sp"
         android:textStyle="bold" />
 
 

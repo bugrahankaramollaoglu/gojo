@@ -46,8 +46,6 @@ class AddTaskFragment : Fragment() {
     ): View? {
         binding = FragmentAddTaskBinding.inflate(inflater, container, false)
 
-        (activity as AppCompatActivity).supportActionBar?.show()
-
         return binding.root
     }
 
