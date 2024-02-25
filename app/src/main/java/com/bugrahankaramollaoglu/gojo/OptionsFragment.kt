@@ -60,7 +60,6 @@ class OptionsFragment : Fragment() {
                         "you clciked on change font",
                         Toast.LENGTH_SHORT
                     ).show()
-
                 }
 
                 "Temayı Değiştir" -> {

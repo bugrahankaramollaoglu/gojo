@@ -80,6 +80,7 @@ class HomeFragment : Fragment() {
                 ).show()
             } else {
                 auth!!.createUserWithEmailAndPassword(email, password).addOnSuccessListener {
+                    Toast.makeText(requireContext(),"Kayıt Başarılı!", Toast.LENGTH_SHORT).show()
                 }.addOnFailureListener { e ->
                     Toast.makeText(
                         requireContext(),
