@@ -147,7 +147,6 @@
         android:text="RESET"
         android:textSize="20sp"
         android:textColor="@color/white"
-        android:fontFamily="@font/chunky"
         android:textAlignment="center"
         android:layout_below="@id/saveButton"
         android:layout_centerHorizontal="true"
