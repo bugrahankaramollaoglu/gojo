@@ -1,7 +1,11 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <style name="Base.Theme.Gojo" parent="Theme.Material3.DayNight.NoActionBar">
-         <item name="colorPrimary">@color/color1</item>
+        <item name="colorPrimary">@color/color1</item>
+    </style>
+
+    <style name="Theme.Gojo.Color2" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/color4</item>
     </style>
 
 </resources>

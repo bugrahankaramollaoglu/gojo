@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/homeFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color1"
@@ -103,11 +104,12 @@
         android:layout_height="50dp"
         android:layout_below="@id/forgotPasswordText"
         android:layout_alignStart="@id/passwordCard"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="70dp"
         android:elevation="50dp"
         app:cardBackgroundColor="@color/white">
 
         <TextView
+            android:id="@+id/signupText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -125,11 +127,12 @@
         android:layout_height="50dp"
         android:layout_below="@id/forgotPasswordText"
         android:layout_alignEnd="@id/passwordCard"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="70dp"
         android:elevation="50dp"
         app:cardBackgroundColor="@color/white">
 
         <TextView
+            android:id="@+id/signinText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -142,22 +145,22 @@
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
-        android:id="@+id/proverb"
+        android:id="@+id/proverbText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/signinButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="135dp"
+        android:fontFamily="@font/times"
         android:text="@string/proverb"
         android:textColor="@color/white"
-        android:textSize="17sp"
-        android:textStyle="italic" />
+        android:textSize="17sp" />
 
     <TextView
-        android:id="@+id/yazar"
+        android:id="@+id/authorText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/proverb"
+        android:layout_below="@id/proverbText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
         android:text="A. Süheyl Ünver"

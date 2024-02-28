@@ -1,59 +1,95 @@
 package com.bugrahankaramollaoglu.gojo
 
+import android.content.Context
+import android.content.SharedPreferences
+import android.graphics.Typeface
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.Fragment
+import com.bugrahankaramollaoglu.gojo.databinding.FragmentTasksStatsBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [TasksStatsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class TasksStatsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private lateinit var binding: FragmentTasksStatsBinding
+    private lateinit var sharedPreferences: SharedPreferences
+    private var currentFont: String? = "times"
+    private var currentTheme: String? = "light"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
+        sharedPreferences =
+            requireActivity().getSharedPreferences("shared_pref", Context.MODE_PRIVATE)
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tasks_stats, container, false)
+        binding = FragmentTasksStatsBinding.inflate(inflater, container, false)
+
+        currentFont = sharedPreferences.getString("font-key", "times")
+        currentTheme = sharedPreferences.getString("theme-key", "light")
+        applyFont(currentFont)
+        apply_theme(currentTheme)
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment TasksStatsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            TasksStatsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun apply_theme(currentTheme: String?) {
+
+        if (currentTheme.equals("dark")) {
+
+            binding.statsFragment.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.color4
+                )
+            )
+
+        } else {
+            binding.statsFragment.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.color1
+                )
+            )
+        }
+
+    }
+
+    private fun applyFont(currentFont: String?) {
+        val typeface: Typeface? = when {
+            currentFont!!.isNotBlank() -> {
+                val fontResId =
+                    requireContext().resources.getIdentifier(
+                        currentFont,
+                        "font",
+                        requireContext().packageName
+                    )
+                ResourcesCompat.getFont(requireContext(), fontResId)
             }
+
+            else -> null
+        }
+
+        typeface?.let { it ->
+            binding.tasksText.typeface = it
+            binding.completedTasksText.typeface = it
+            binding.credentialsText.typeface = it
+            binding.signedUpDateText.typeface = it
+        }
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
     }
 }

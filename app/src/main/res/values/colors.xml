@@ -3,10 +3,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="color1">#3673A9</color>
-<!--    <color name="color1">#618FB8</color>-->
+    <!--    <color name="color1">#618FB8</color>-->
     <color name="color2">#E35ED5</color>
     <color name="color3">#87C855</color>
-    <color name="color4">#8F0D0D</color>
+    <color name="color4">#191717</color>
     <color name="color5">#C9D31E</color>
     <color name="white2">#EAE9DE</color>
 </resources>
