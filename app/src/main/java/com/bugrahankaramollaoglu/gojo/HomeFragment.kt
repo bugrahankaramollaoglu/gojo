@@ -3,16 +3,23 @@ package com.bugrahankaramollaoglu.gojo
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Typeface
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.bugrahankaramollaoglu.gojo.databinding.FragmentHomeBinding
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.firestore
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 
 class HomeFragment : Fragment() {
@@ -23,6 +30,7 @@ class HomeFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     private var currentFont: String? = "times"
     private var currentTheme: String? = "light"
+    private var user_template = hashMapOf<String, String>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +47,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         currentFont = sharedPreferences.getString("font-key", "times")
@@ -105,10 +113,19 @@ class HomeFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        auth = FirebaseAuth.getInstance();
+        val db = Firebase.firestore
+        user_template = hashMapOf(
+            "email" to "xxx@hotmail.com",
+            "password" to "asd123",
+            "date" to "20:32"
+        )
+
+
+        auth = FirebaseAuth.getInstance()
         val user = auth!!.currentUser
 
         if (user != null) {
@@ -139,10 +156,26 @@ class HomeFragment : Fragment() {
             }
         }
 
+
+
+        binding.logo.setOnClickListener {
+            db.collection("users")
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        Log.d("mesaj", "${document.id} => ${document.data}")
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.w("mesaj", "Error getting documents.", exception)
+                }
+        }
+
         binding.signupButton.setOnClickListener {
 
             val email = binding.emailText.text.toString()
             val password = binding.passwordText.text.toString()
+            val date = getCurrentDateString()
 
             if (email.isEmpty() || password.isEmpty() || email.isBlank() || password.isBlank()) {
                 Toast.makeText(
@@ -151,8 +184,26 @@ class HomeFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
+
+                user_template = hashMapOf(
+                    "email" to email,
+                    "password" to password,
+                    "date" to date
+                )
+
                 auth!!.createUserWithEmailAndPassword(email, password).addOnSuccessListener {
                     Toast.makeText(requireContext(), "Kayıt Başarılı!", Toast.LENGTH_SHORT).show()
+                    db.collection("users")
+                        .add(user_template)
+                        .addOnSuccessListener { documentReference ->
+                            Log.d(
+                                "mesaj",
+                                "DocumentSnapshot added with ID: ${documentReference.id}"
+                            )
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w("mesaj", "Error adding document", e)
+                        }
                 }.addOnFailureListener { e ->
                     Toast.makeText(
                         requireContext(),
@@ -168,4 +219,13 @@ class HomeFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getCurrentDateString(): String {
+        val currentDate = LocalDate.now()
+        val formatter = DateTimeFormatter.ofPattern("d.MM.yyyy")
+        return currentDate.format(formatter)
+    }
+
 }
+
+

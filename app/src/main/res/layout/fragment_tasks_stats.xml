@@ -36,7 +36,7 @@
         android:layout_below="@id/credentialsText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="asd@hotmail.com"
+        android:text="_______email_______"
         android:textColor="@color/white" />
 
     <TextView
@@ -46,7 +46,7 @@
         android:layout_below="@id/email"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="bugra2024"
+        android:text="________password_______"
         android:textColor="@color/white" />
 
     <TextView
@@ -63,12 +63,22 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/tasksText"
+        android:id="@+id/signedUpDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/signedUpDateText"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
+        android:text="_______date________"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/tasksText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/signedUpDate"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
         android:text="Toplam Görev Sayısı"
         android:textColor="@color/white"
         android:textSize="22sp"

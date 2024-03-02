@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class TaskAdapter(private val taskList: List<Task>) :
+class TaskAdapter(private val myTaskList: List<MyTask>) :
     RecyclerView.Adapter<TaskAdapter.TaskHolder>() {
 
     inner class TaskHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -30,13 +30,13 @@ class TaskAdapter(private val taskList: List<Task>) :
     }
 
     override fun onBindViewHolder(holder: TaskHolder, position: Int) {
-        val currentTask = taskList[position]
-        holder.rwHeader.text = currentTask.header.toString()
-        holder.rwDetails.text = currentTask.details
+        val currentTask = myTaskList[position]
+//        holder.rwHeader.text = currentTask.header.toString()
+//        holder.rwDetails.text = currentTask.details
     }
 
     override fun getItemCount(): Int {
-        return taskList.size
+        return myTaskList.size
     }
 }
 
