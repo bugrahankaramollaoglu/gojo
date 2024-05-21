@@ -73,12 +73,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89854678-f4fd-4276-88e8-88d52c758af8" name="Changes" comment="asd">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/bugra2.png" beforeDir="false" />
-      <change beforePath="/run/media/bugra/depo/gojo/.idea/misc.xml" beforeDir="false" afterPath="/run/media/bugra/depo/gojo/.idea/misc.xml" afterDir="false" />
-      <change beforePath="/run/media/bugra/depo/gojo/app/src/main/res/drawable/bugra2.png" beforeDir="false" />
-    </list>
+    <list default="true" id="89854678-f4fd-4276-88e8-88d52c758af8" name="Changes" comment="asd" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -87,7 +82,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[NNR6R20521010745]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/home/bugra/.android/avd/pixel.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
