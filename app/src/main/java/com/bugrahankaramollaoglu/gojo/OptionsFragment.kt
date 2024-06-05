@@ -12,7 +12,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.bugrahankaramollaoglu.gojo.databinding.FragmentOptionsBinding
 
-
 class OptionsFragment : Fragment() {
 
     private lateinit var binding: FragmentOptionsBinding
@@ -164,8 +163,6 @@ class OptionsFragment : Fragment() {
                 )
             )
         }
-
-
     }
 
     private fun applyFont(currentFont: String?) {
