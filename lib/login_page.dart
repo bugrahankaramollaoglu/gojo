@@ -137,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Image.asset('assets/login_photo.png'),
             ),
           ),
-          Padding(
+          /*  Padding(
             padding: const EdgeInsets.fromLTRB(40, 20, 40, 0),
             child: OutlinedButton(
               style: OutlinedButton.styleFrom(
@@ -173,15 +173,27 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
+          ), */
+          signinField(
+            image: Image.asset(
+              'assets/google.png',
+              width: 25,
+              height: 25,
+            ),
+            text: 'Sign in with Google',
+            onPressed: () {
+              signInWithGoogle(context);
+            },
           ),
           signinField(
-              image: Image.asset(
-                'assets/apple.png',
-                width: 25,
-                height: 25,
-              ),
-              text: 'Sign in with Apple',
-              onPressed: () {}),
+            image: Image.asset(
+              'assets/apple.png',
+              width: 25,
+              height: 25,
+            ),
+            text: 'Sign in with Apple',
+            onPressed: () {},
+          ),
           signinField(
             image: Image.asset(
               'assets/email.png',
