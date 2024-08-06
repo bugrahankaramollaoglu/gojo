@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gojo/home_page.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 class LoginPage extends StatefulWidget {
@@ -9,6 +11,58 @@ class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
 }
+
+Future<void> signInWithGoogle(BuildContext context) async {
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+
+  try {
+    final GoogleSignInAccount? googleSignInAccount =
+        await googleSignIn.signIn();
+
+    if (googleSignInAccount != null) {
+      final GoogleSignInAuthentication googleAuth =
+          await googleSignInAccount.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      final UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+
+      if (userCredential.user != null) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const HomePage()),
+          (route) => false,
+        );
+      }
+    } else {
+      print('aa: not worked');
+    }
+  } catch (e) {
+    print('aa: Error: $e');
+  }
+}
+
+/* Future<void> _signInWithEmailAndPassword(BuildContext context) async {
+  try {
+    await Auth().signInWithEmailAndPassword(
+      email: _emailController.text.trim(),
+      password: _passwordController.text.trim(),
+    );
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const HomePage()),
+      (route) => false,
+    );
+  } on FirebaseAuthException {
+    /*  setState(() {
+        errorMessage = e.message;
+      }); */
+  }
+} */
 
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
@@ -48,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
         // crossAxisAlignment: CrossAxisAlignment.center,
         // mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(height: 100),
+          const SizedBox(height: 80),
           Center(
             child: Text(
               'Gojo, a simple way to\nremember',
@@ -62,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-          SizedBox(height: 30),
+          SizedBox(height: 20),
           Center(
             child: Text(
               'Login to your account',
@@ -91,7 +145,9 @@ class _LoginPageState extends State<LoginPage> {
                   borderRadius: BorderRadius.circular(7),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                signInWithGoogle(context);
+              },
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Row(
@@ -118,75 +174,22 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(40, 20, 40, 0),
-            child: OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(7),
-                ),
+          signinField(
+              image: Image.asset(
+                'assets/apple.png',
+                width: 25,
+                height: 25,
               ),
-              onPressed: () {},
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'assets/apple.png',
-                      height: 30,
-                      width: 30,
-                    ),
-                    SizedBox(width: 10),
-                    Text(
-                      'Sign in with Apple',
-                      style: GoogleFonts.lato(
-                        textStyle: const TextStyle(
-                          fontSize: 18,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              text: 'Sign in with Apple',
+              onPressed: () {}),
+          signinField(
+            image: Image.asset(
+              'assets/email.png',
+              width: 25,
+              height: 25,
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(40, 20, 40, 0),
-            child: OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(7),
-                ),
-              ),
-              onPressed: () {},
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.email,
-                      color: Color.fromARGB(255, 238, 237, 237),
-                      size: 30,
-                    ),
-                    SizedBox(width: 10),
-                    Text(
-                      'Sign in with email',
-                      style: GoogleFonts.lato(
-                        textStyle: const TextStyle(
-                          fontSize: 18,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            text: 'Sign in with email',
+            onPressed: () {},
           ),
           SizedBox(height: 40),
           Divider(
@@ -240,4 +243,42 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+}
+
+Widget signinField({
+  required Image image,
+  required String text,
+  required VoidCallback onPressed,
+}) {
+  return Padding(
+    padding: const EdgeInsets.fromLTRB(40, 20, 40, 0),
+    child: OutlinedButton(
+      style: OutlinedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(7),
+        ),
+      ),
+      onPressed: onPressed,
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            image,
+            SizedBox(width: 10),
+            Text(
+              text,
+              style: GoogleFonts.lato(
+                textStyle: const TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 }
