@@ -20,17 +20,6 @@ class MyColors {
   Color color12 = const Color(0xF2F3EEEE);
 }
 
-/* Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  runApp(
-    MyApp(),
-  );
-} */
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -41,7 +30,7 @@ void main() async {
   runApp(
     ProviderScope(
       child: GojoApp(
-        initialPage: user == null ? LoginPage() : const HomePage(),
+        initialPage: user == null ? LoginPage() :  HomePage(),
       ),
     ),
   );

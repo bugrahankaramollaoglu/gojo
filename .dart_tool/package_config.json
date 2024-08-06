@@ -140,6 +140,12 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "font_awesome_flutter",
+      "rootUri": "file:///home/bugra/.pub-cache/hosted/pub.dev/font_awesome_flutter-10.7.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "google_fonts",
       "rootUri": "file:///home/bugra/.pub-cache/hosted/pub.dev/google_fonts-6.2.1",
       "packageUri": "lib/",
@@ -422,7 +428,7 @@
       "languageVersion": "3.4"
     }
   ],
-  "generated": "2024-08-06T13:25:05.192404Z",
+  "generated": "2024-08-06T19:00:35.198281Z",
   "generator": "pub",
   "generatorVersion": "3.4.3",
   "flutterRoot": "file:///home/bugra/snap/flutter/common/flutter",

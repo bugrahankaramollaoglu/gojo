@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gojo/deneme.dart';
 import 'package:gojo/login_page.dart';
 
 Future<void> signOut() async {
@@ -11,22 +12,62 @@ Future<void> signOut() async {
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomePage extends StatefulWidget {
+  HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int _selectedIndex = 0; // Track the selected index
+  Widget currentBody = Container(
+    child: Center(
+      child: Text(
+        'Home Page',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 30,
+        ),
+      ),
+    ),
+  );
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+      if (index == 0) {
+        currentBody = Container(
+          child: Center(
+            child: Text(
+              'Home Page',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 30,
+              ),
+            ),
+          ),
+        );
+      } else if (index == 1) {
+        setState(() {
+          currentBody = Page1();
+        });
+      } else if (index == 2) {
+        setState(() {
+          currentBody = Page2();
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.pink,
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () async {
-            await signOut();
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => LoginPage()));
-          },
-          child: const Text('Sign out'),
-        ),
+      backgroundColor: const Color.fromARGB(255, 25, 25, 25),
+      body: currentBody,
+      bottomNavigationBar: BottomNav(
+        selectedIndex: _selectedIndex, // Pass the selected index
+        onItemTapped: _onItemTapped, // Pass the function to handle taps
       ),
     );
   }

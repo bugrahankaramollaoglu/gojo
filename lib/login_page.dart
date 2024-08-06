@@ -34,7 +34,7 @@ class LoginPage extends ConsumerWidget {
         if (userCredential.user != null) {
           Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => const HomePage()),
+            MaterialPageRoute(builder: (context) =>  HomePage()),
             (route) => false,
           );
         }
