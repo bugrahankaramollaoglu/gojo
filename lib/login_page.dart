@@ -53,25 +53,13 @@ class LoginPage extends ConsumerWidget {
   String? _errorMessage;
 
   Future<void> _login() async {
-    // setState(() {
-    //   _isLoading = true;
-    //   _errorMessage = null;
-    // });
-
     try {
       await _auth.signInWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
     } on FirebaseAuthException {
-      // setState(() {
-      //   _errorMessage = e.message;
-      // });
-    } finally {
-      // setState(() {
-      //   _isLoading = false;
-      // });
-    }
+    } finally {}
   }
 
   @override
@@ -82,13 +70,22 @@ class LoginPage extends ConsumerWidget {
     var isShowEmail = ref.watch(showEmailForm);
     var isShowRegister = ref.watch(showRegisterForm);
 
+    Widget currentView;
+    if (isShowRegister) {
+      currentView = RegisterForm();
+    } else if (isShowEmail) {
+      currentView = SignInForm();
+    } else {
+      currentView = LoginForm(context, ref);
+    }
+
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: const Color.fromARGB(255, 25, 25, 25),
-      body: isShowEmail
-          ? SignInForm()
-          : isShowRegister
-              ? RegisterForm()
-              : LoginForm(context, ref),
+      body: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 500),
+        child: currentView,
+      ),
     );
   }
 }
@@ -98,44 +95,34 @@ Future<void> signInWithGoogle(BuildContext context) async {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   try {
-    // Trigger the Google Sign-In flow
     final GoogleSignInAccount? googleSignInAccount =
         await googleSignIn.signIn();
 
     if (googleSignInAccount != null) {
-      // Obtain the auth details from the request
       final GoogleSignInAuthentication googleAuth =
           await googleSignInAccount.authentication;
 
-      // Create a new credential
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
-      // Sign in to Firebase with the Google credential
       final UserCredential userCredential =
           await firebaseAuth.signInWithCredential(credential);
 
-      // Check if the user is signed in
       if (userCredential.user != null) {
-        // Navigate to the home page or another page
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  HomePage()), // Replace HomePage with your actual home page widget
+          MaterialPageRoute(builder: (context) => HomePage()),
           (route) => false,
         );
       }
     } else {
-      // Handle the case where Google Sign-In fails or is cancelled
       print('Sign in with Google was cancelled or failed.');
     }
   } catch (e) {
-    // Handle any errors that occur during the sign-in process
     print('Error during Google sign-in: $e');
-    // Optionally, show an error message to the user
+
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('Error signing in with Google: $e'),
@@ -210,18 +197,14 @@ Widget LoginForm(BuildContext context, WidgetRef ref) {
         ),
         text: 'Sign in with email',
         onPressed: () {
-          /* navigateWithFadeTransition(
-            context,
-            SignInEmailPage(), // Replace with the actual page you want to navigate to
-          ); */
           ref.read(showEmailForm.notifier).state = !ref.read(showEmailForm);
         },
       ),
-      const SizedBox(height: 20),
+      const SizedBox(height: 30),
       RichText(
         text: TextSpan(
           style: GoogleFonts.lato(
-            color: Colors.white,
+            color: Colors.white54,
             fontSize: 18,
           ),
           children: <TextSpan>[
@@ -229,23 +212,19 @@ Widget LoginForm(BuildContext context, WidgetRef ref) {
             TextSpan(
               text: 'Sign up',
               style: TextStyle(
-                decoration: TextDecoration.underline,
-                color: Colors
-                    .blue, // Optional: Change color to indicate it's clickable
+                color: Color.fromARGB(255, 82, 135, 179),
               ),
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
-                  // Handle the click event here
                   print('Sign up clicked');
                   ref.read(showRegisterForm.notifier).state =
                       !ref.read(showRegisterForm);
-                  // Navigate to the sign-up page or show a dialog, etc.
                 },
             ),
           ],
         ),
       ),
-      const SizedBox(height: 25),
+      const SizedBox(height: 20),
       const Divider(
         color: Color.fromARGB(255, 187, 190, 191),
         thickness: 1,
@@ -266,7 +245,7 @@ Widget LoginForm(BuildContext context, WidgetRef ref) {
         'A. Süheyl Ünver',
         style: GoogleFonts.kreon(
           textStyle: const TextStyle(
-            fontSize: 20,
+            fontSize: 18,
             color: Color.fromARGB(255, 213, 217, 218),
           ),
         ),
