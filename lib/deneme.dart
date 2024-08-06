@@ -22,7 +22,7 @@ class _BottomNavState extends State<BottomNav> {
       },
       child: Icon(
         icon,
-        size: 30,
+        size: 35,
         color: widget.selectedIndex == index ? Colors.white : Colors.black,
       ),
     );
@@ -38,10 +38,10 @@ class _BottomNavState extends State<BottomNav> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            _buildNavItem(Icons.home_rounded, 0),
-            _buildNavItem(Icons.analytics_rounded, 1),
-            _buildNavItem(Icons.add_rounded, 2),
-            _buildNavItem(Icons.energy_savings_leaf_rounded, 3),
+            _buildNavItem(Icons.home_filled, 0),
+            _buildNavItem(Icons.search, 1),
+            _buildNavItem(Icons.add, 2),
+            _buildNavItem(Icons.person_3_rounded, 3),
           ],
         ),
       ),
@@ -72,47 +72,5 @@ class BottomNavBarPainter extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
     return false;
-  }
-}
-
-class Page1 extends StatelessWidget {
-  const Page1({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      child: Center(
-        child: Text(
-          'Page 1',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 30,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class Page2 extends StatelessWidget {
-  const Page2({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      child: Center(
-        child: Text(
-          'Page 2',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 30,
-          ),
-        ),
-      ),
-    );
   }
 }
