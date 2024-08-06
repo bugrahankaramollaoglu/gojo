@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gojo/home_page.dart';
 import 'package:gojo/login_page.dart';
 
@@ -37,7 +38,13 @@ void main() async {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final User? user = auth.currentUser;
 
-  runApp(GojoApp(initialPage: user == null ? const LoginPage() : const HomePage()));
+  runApp(
+    ProviderScope(
+      child: GojoApp(
+        initialPage: user == null ? LoginPage() : const HomePage(),
+      ),
+    ),
+  );
 }
 
 class GojoApp extends StatelessWidget {

@@ -116,6 +116,12 @@
       "languageVersion": "3.1"
     },
     {
+      "name": "flutter_riverpod",
+      "rootUri": "file:///home/bugra/.pub-cache/hosted/pub.dev/flutter_riverpod-2.5.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "flutter_svg",
       "rootUri": "file:///home/bugra/.pub-cache/hosted/pub.dev/flutter_svg-2.0.10+1",
       "packageUri": "lib/",
@@ -416,7 +422,7 @@
       "languageVersion": "3.4"
     }
   ],
-  "generated": "2024-08-06T09:44:56.062930Z",
+  "generated": "2024-08-06T13:25:05.192404Z",
   "generator": "pub",
   "generatorVersion": "3.4.3",
   "flutterRoot": "file:///home/bugra/snap/flutter/common/flutter",
