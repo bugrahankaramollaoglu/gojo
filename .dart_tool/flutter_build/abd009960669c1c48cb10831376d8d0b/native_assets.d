@@ -1,0 +1,1 @@
+ /home/bugra/Desktop/gojo/.dart_tool/flutter_build/abd009960669c1c48cb10831376d8d0b/native_assets.yaml: 
