@@ -75,7 +75,7 @@
     },
     {
       "name": "firebase_auth",
-      "rootUri": "file:///home/bugra/.pub-cache/hosted/pub.dev/firebase_auth-5.1.3",
+      "rootUri": "file:///home/bugra/.pub-cache/hosted/pub.dev/firebase_auth-5.1.4",
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
@@ -108,6 +108,12 @@
       "rootUri": "file:///home/bugra/.pub-cache/hosted/pub.dev/firebase_core_web-2.17.4",
       "packageUri": "lib/",
       "languageVersion": "3.2"
+    },
+    {
+      "name": "flashy_tab_bar2",
+      "rootUri": "file:///home/bugra/.pub-cache/hosted/pub.dev/flashy_tab_bar2-0.0.10",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
     },
     {
       "name": "flutter",
@@ -440,7 +446,7 @@
       "languageVersion": "3.4"
     }
   ],
-  "generated": "2024-08-07T06:43:43.688862Z",
+  "generated": "2024-08-07T10:58:37.573859Z",
   "generator": "pub",
   "generatorVersion": "3.4.3",
   "flutterRoot": "file:///home/bugra/snap/flutter/common/flutter",

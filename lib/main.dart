@@ -2,22 +2,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gojo/home_page.dart';
-import 'package:gojo/login_page.dart';
+import 'package:gojo/main_page.dart';
+import 'package:gojo/login/login_page.dart';
 
 class MyColors {
-  Color color1 = const Color(0xFF0a0d16);
-  Color color2 = const Color(0xFFABD98B);
-  Color color3 = const Color(0xFF84BF5A);
-  Color color4 = const Color(0xFF55A603);
-  Color color5 = const Color(0xFF18181A);
-  Color color6 = const Color(0xF2F2F2F2);
-  Color color7 = const Color(0xF25CCC60);
-  Color color8 = const Color(0xF23D3F3D);
-  Color color9 = const Color(0xF255A603);
-  Color color10 = const Color(0xF200EC6D);
-  Color color11 = const Color(0xF2999494);
-  Color color12 = const Color(0xF2F3EEEE);
+  Color color1 = const Color(0xFF191919);
+  Color color2 = const Color(0xFF1c1c1e);
+  Color color3 = Color.fromARGB(255, 30, 30, 31);
+  Color color4 = Color.fromARGB(255, 84, 89, 106);
+  Color color5 = const Color(0xFF0a0d16);
+  // backgroundColor: const Color.fromARGB(255, 25, 25, 25),
 }
 
 void main() async {
@@ -30,7 +24,7 @@ void main() async {
   runApp(
     ProviderScope(
       child: GojoApp(
-        initialPage: user == null ? LoginPage() :  HomePage(),
+        initialPage: user == null ? LoginPage() : MainPage(),
       ),
     ),
   );

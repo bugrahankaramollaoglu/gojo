@@ -29,41 +29,91 @@ class _AddPageState extends State<AddPage> {
     Navigator.pop(context);
   }
 
+  DateTime? _selectedDateTime;
+
+  // Function to show the date and time picker dialog
+  Future<void> _selectDateTime(BuildContext context) async {
+    // Show date picker
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2100),
+    );
+
+    if (pickedDate != null) {
+      // Show time picker
+      TimeOfDay? pickedTime = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+      );
+
+      if (pickedTime != null) {
+        // Combine date and time
+        final selectedDateTime = DateTime(
+          pickedDate.year,
+          pickedDate.month,
+          pickedDate.day,
+          pickedTime.hour,
+          pickedTime.minute,
+        );
+
+        setState(() {
+          _selectedDateTime = selectedDateTime;
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Stack(
         children: [
           Positioned(
-            top: -250,
-            left: -150,
+            top: -275,
+            left: -200,
             child: Container(
               width: 400,
               height: 400,
               decoration: BoxDecoration(
-                shape: BoxShape.values[1],
+                shape: BoxShape.circle,
                 color: Colors.blue.withOpacity(0.4),
               ),
             ),
           ),
+          GestureDetector(
+            child: Positioned(
+              top: 40,
+              left: 10,
+              child: Image.asset(
+                'assets/back_trunk.png',
+                width: 100,
+                height: 100,
+              ),
+            ),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
           Positioned(
-            bottom: -180,
-            right: -230,
+            bottom: -200,
+            right: -250,
             child: Container(
               width: 400,
               height: 400,
               decoration: BoxDecoration(
-                shape: BoxShape.values[1],
-                color: Colors.white.withOpacity(0.4),
+                shape: BoxShape.circle,
+                color: Colors.pink.withOpacity(0.4),
               ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(height: 150),
                 Text(
                   'Title of Note',
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -85,6 +135,54 @@ class _AddPageState extends State<AddPage> {
                       border: InputBorder.none,
                     ),
                   ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Deadline & Category',
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white70,
+                      ),
+                ),
+                SizedBox(height: 10),
+                // Fixed Row Layout
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 2, // 2 parts of the width
+                      child: GestureDetector(
+                        onTap: () => _selectDateTime(context),
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Icon(
+                              Icons.calendar_month_rounded,
+                              size: 50,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 16), // Add spacing between cards
+                    Expanded(
+                      flex: 4, // 4 parts of the width
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Icon(
+                            Icons.category_rounded,
+                            size: 45,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(height: 20),
                 Text(
