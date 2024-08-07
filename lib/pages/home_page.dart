@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:iconly/iconly.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -40,16 +41,15 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: const EdgeInsets.all(28.0),
-                child: CircleAvatar(
-                  radius: 25,
-                  backgroundImage: AssetImage(
-                    'assets/avatar2.png',
-                  ),
+                padding: const EdgeInsets.fromLTRB(28.0, 28, 28, 20),
+                child: Icon(
+                  Icons.menu,
+                  size: 30,
+                  color: Colors.white70,
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(28.0),
+                padding: const EdgeInsets.fromLTRB(28.0, 28, 28, 20),
                 child: CircleAvatar(
                   radius: 15,
                   backgroundColor: Colors.transparent,
@@ -64,38 +64,41 @@ class _HomePageState extends State<HomePage> {
           Text(
             'A simple way to remember',
             style: GoogleFonts.kreon(
-              textStyle: const TextStyle(
-                fontSize: 25,
-                color: Colors.grey,
-                fontWeight: FontWeight.bold,
-              ),
+              color: Colors.white70,
+              fontSize: 27,
             ),
           ),
-          SizedBox(height: 40),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-            child: TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                hintText: 'Search a note or task...',
-                hintStyle: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 18,
-                  fontWeight: FontWeight.normal,
-                ),
-                suffixIcon: Icon(
-                  Icons.search,
-                  color: Colors.grey,
-                ),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blueAccent),
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-              ),
-            ),
-          ),
+          const SizedBox(height: 30),
+          searchText(_searchController),
         ],
       ),
     );
   }
+}
+
+Widget searchText(TextEditingController _searchController) {
+  return Padding(
+    padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+    child: TextField(
+      controller: _searchController,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.transparent,
+        hintText: 'Search a note or task...',
+        hintStyle: TextStyle(
+          color: Colors.grey,
+          fontSize: 18,
+          fontWeight: FontWeight.normal,
+        ),
+        suffixIcon: Icon(
+          Icons.search,
+          color: Colors.white70,
+        ),
+        border: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.white70),
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+      ),
+    ),
+  );
 }
