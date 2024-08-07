@@ -50,6 +50,12 @@
       "languageVersion": "2.19"
     },
     {
+      "name": "crystal_navigation_bar",
+      "rootUri": "file:///home/bugra/.pub-cache/hosted/pub.dev/crystal_navigation_bar-1.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.1"
+    },
+    {
       "name": "cupertino_icons",
       "rootUri": "file:///home/bugra/.pub-cache/hosted/pub.dev/cupertino_icons-1.0.8",
       "packageUri": "lib/",
@@ -196,6 +202,12 @@
     {
       "name": "http_parser",
       "rootUri": "file:///home/bugra/.pub-cache/hosted/pub.dev/http_parser-4.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "iconly",
+      "rootUri": "file:///home/bugra/.pub-cache/hosted/pub.dev/iconly-1.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -428,7 +440,7 @@
       "languageVersion": "3.4"
     }
   ],
-  "generated": "2024-08-06T19:00:35.198281Z",
+  "generated": "2024-08-07T06:43:43.688862Z",
   "generator": "pub",
   "generatorVersion": "3.4.3",
   "flutterRoot": "file:///home/bugra/snap/flutter/common/flutter",
