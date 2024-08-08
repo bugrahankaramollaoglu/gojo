@@ -37,6 +37,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    // final keyboardHeight = ;
     return Scaffold(
       body: tabItems[_selectedIndex],
       backgroundColor:

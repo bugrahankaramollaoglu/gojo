@@ -6,6 +6,24 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 import 'package:shimmer_effect/shimmer_effect.dart';
 
+void saveNote(BuildContext context, TextEditingController _titleController,
+    TextEditingController _descriptionController) {
+  final title = _titleController.text;
+  final description = _descriptionController.text;
+
+  // Save note logic here
+
+  // Show a Snackbar as feedback
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(content: Text('Note saved successfully!')),
+  );
+
+  // Clear the fields and go back
+  _titleController.clear();
+  _descriptionController.clear();
+  // Navigator.pop(context);
+}
+
 class AddPage extends ConsumerWidget {
   AddPage({super.key});
 
@@ -16,23 +34,6 @@ class AddPage extends ConsumerWidget {
 // class _AddPageState extends State<AddPage> {
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
-
-/*   void _saveNote() {
-    final title = _titleController.text;
-    final description = _descriptionController.text;
-
-    // Save note logic here
-
-    // Show a Snackbar as feedback
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Note saved successfully!')),
-    );
-
-    // Clear the fields and go back
-    _titleController.clear();
-    _descriptionController.clear();
-    // Navigator.pop(context);
-  } */
 
   DateTime? _selectedDateTime;
 
@@ -328,7 +329,7 @@ Widget writtenNoteContent(
           child: ElevatedButton(
             onPressed: () {
               // signOut(context);
-              // _saveNote();
+              saveNote(context, _titleController, _descriptionController);
               print('isRecordedChosen: $isRecordedChosen');
             },
             child: ShimmerEffect(
