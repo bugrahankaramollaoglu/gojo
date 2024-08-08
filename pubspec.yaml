@@ -46,6 +46,8 @@ dependencies:
   crystal_navigation_bar: ^1.0.0
   iconly: ^1.0.1
   flashy_tab_bar2: ^0.0.10
+  table_calendar: ^3.1.2
+  shimmer_effect: ^1.0.4
 
 dev_dependencies:
   flutter_test:

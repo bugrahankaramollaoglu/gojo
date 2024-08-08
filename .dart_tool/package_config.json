@@ -224,6 +224,12 @@
       "languageVersion": "2.16"
     },
     {
+      "name": "intl",
+      "rootUri": "file:///home/bugra/.pub-cache/hosted/pub.dev/intl-0.19.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "leak_tracker",
       "rootUri": "file:///home/bugra/.pub-cache/hosted/pub.dev/leak_tracker-10.0.4",
       "packageUri": "lib/",
@@ -338,6 +344,18 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "shimmer_effect",
+      "rootUri": "file:///home/bugra/.pub-cache/hosted/pub.dev/shimmer_effect-1.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "simple_gesture_detector",
+      "rootUri": "file:///home/bugra/.pub-cache/hosted/pub.dev/simple_gesture_detector-0.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "sky_engine",
       "rootUri": "file:///home/bugra/snap/flutter/common/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
@@ -372,6 +390,12 @@
       "rootUri": "file:///home/bugra/.pub-cache/hosted/pub.dev/string_scanner-1.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
+    },
+    {
+      "name": "table_calendar",
+      "rootUri": "file:///home/bugra/.pub-cache/hosted/pub.dev/table_calendar-3.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
     },
     {
       "name": "term_glyph",
@@ -446,7 +470,7 @@
       "languageVersion": "3.4"
     }
   ],
-  "generated": "2024-08-07T10:58:37.573859Z",
+  "generated": "2024-08-07T15:31:21.228307Z",
   "generator": "pub",
   "generatorVersion": "3.4.3",
   "flutterRoot": "file:///home/bugra/snap/flutter/common/flutter",

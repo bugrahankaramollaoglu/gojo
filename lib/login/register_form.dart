@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gojo/riverpod_providers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shimmer_effect/shimmer_effect.dart';
 
 class RegisterForm extends ConsumerStatefulWidget {
   RegisterForm({super.key});
@@ -190,27 +191,36 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                         },
                       ),
                       const SizedBox(height: 30),
-                      RichText(
-                        text: TextSpan(
-                          style: GoogleFonts.lato(
-                            color: Colors.white54,
-                            fontSize: 18,
-                          ),
-                          children: <TextSpan>[
-                            TextSpan(text: 'Already have an account? '),
-                            TextSpan(
-                              text: 'Sign in',
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 82, 135, 179),
-                              ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  ref.read(showEmailForm.notifier).state =
-                                      !ref.read(showEmailForm);
-                                },
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Already have an account? ',
+                            style: GoogleFonts.lato(
+                              color: Colors.white54,
+                              fontSize: 18,
                             ),
-                          ],
-                        ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              ref.read(showRegisterForm.notifier).state =
+                                  !ref.read(showRegisterForm);
+                            },
+                            child: ShimmerEffect(
+                              baseColor: Color.fromARGB(255, 82, 135, 179),
+                              highlightColor: Colors.white70,
+                              duration: Duration(milliseconds: 1500),
+                              child: Text(
+                                'Sign in',
+                                style: GoogleFonts.lato(
+                                  color: Color.fromARGB(255, 82, 135, 179),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 30),
                       Divider(

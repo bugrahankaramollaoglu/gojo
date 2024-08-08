@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gojo/main_page.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:iconly/iconly.dart';
+import 'package:shimmer_effect/shimmer_effect.dart';
 
 class AddPage extends StatefulWidget {
   const AddPage({super.key});
@@ -26,7 +29,7 @@ class _AddPageState extends State<AddPage> {
     // Clear the fields and go back
     _titleController.clear();
     _descriptionController.clear();
-    Navigator.pop(context);
+    // Navigator.pop(context);
   }
 
   DateTime? _selectedDateTime;
@@ -71,7 +74,7 @@ class _AddPageState extends State<AddPage> {
       child: Stack(
         children: [
           Positioned(
-            top: -275,
+            top: -250,
             left: -200,
             child: Container(
               width: 400,
@@ -82,32 +85,89 @@ class _AddPageState extends State<AddPage> {
               ),
             ),
           ),
-          GestureDetector(
-            child: Positioned(
-              top: 40,
-              left: 10,
+          Positioned(
+            top: 45,
+            left: 10,
+            child: GestureDetector(
+              onTap: null,
               child: Image.asset(
                 'assets/back_trunk.png',
                 width: 100,
                 height: 100,
               ),
             ),
-            onTap: () {
-              Navigator.pop(context);
-            },
           ),
           Positioned(
-            bottom: -200,
+            bottom: -150,
             right: -250,
             child: Container(
               width: 400,
               height: 400,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.pink.withOpacity(0.4),
+                color: Colors.teal.withOpacity(0.5),
               ),
             ),
           ),
+          Positioned(
+              top: 80,
+              right: 25,
+              child: Row(
+                children: [
+                  ShimmerEffect(
+                    baseColor: Colors.white,
+                    highlightColor: Colors.white54,
+                    loop: 1,
+                    child: Column(
+                      children: [
+                        Text(
+                          'Write',
+                          style: GoogleFonts.kreon(
+                            color: Colors.white,
+                            fontSize: 25,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                        Icon(
+                          IconlyBold.paper,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      'or',
+                      style: GoogleFonts.kreon(
+                        color: Colors.white,
+                        fontSize: 26,
+                      ),
+                    ),
+                  ),
+                  ShimmerEffect(
+                    baseColor: Colors.white,
+                    highlightColor: Colors.white54,
+                    loop: 1,
+                    child: Column(
+                      children: [
+                        Text(
+                          'Record',
+                          style: GoogleFonts.kreon(
+                            color: Colors.white,
+                            fontSize: 25,
+                            fontWeight: FontWeight.w100,
+                          ),
+                        ),
+                        Icon(
+                          IconlyBold.voice_2,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              )),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -115,7 +175,7 @@ class _AddPageState extends State<AddPage> {
               children: [
                 SizedBox(height: 150),
                 Text(
-                  'Title of Note',
+                  'Title of Note (*)',
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Colors.white70,
@@ -211,12 +271,20 @@ class _AddPageState extends State<AddPage> {
                 SizedBox(height: 30),
                 Center(
                   child: ElevatedButton(
-                    onPressed: _saveNote,
-                    child: Text(
-                      'Save Note',
-                      style: GoogleFonts.kreon(
-                        color: Colors.white,
-                        fontSize: 20,
+                    onPressed: () {
+                      // signOut(context);
+                      _saveNote();
+                    },
+                    child: ShimmerEffect(
+                      baseColor: Colors.white,
+                      highlightColor: Colors.blue,
+                      loop: 5,
+                      child: Text(
+                        'Save Note',
+                        style: GoogleFonts.kreon(
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
                       ),
                     ),
                     style: ElevatedButton.styleFrom(

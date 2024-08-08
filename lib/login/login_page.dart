@@ -9,6 +9,7 @@ import 'package:gojo/riverpod_providers.dart';
 import 'package:gojo/login/signin_form.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shimmer_effect/shimmer_effect.dart';
 
 class LoginPage extends ConsumerWidget {
   LoginPage({super.key});
@@ -82,7 +83,7 @@ class LoginPage extends ConsumerWidget {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: MyColors().color1,
+      backgroundColor: MyColors().color2,
       body: AnimatedSwitcher(
         duration: const Duration(milliseconds: 500),
         child: currentView,
@@ -202,28 +203,36 @@ Widget LoginForm(BuildContext context, WidgetRef ref) {
         },
       ),
       const SizedBox(height: 30),
-      RichText(
-        text: TextSpan(
-          style: GoogleFonts.lato(
-            color: Colors.white54,
-            fontSize: 18,
-          ),
-          children: <TextSpan>[
-            TextSpan(text: 'No account? '),
-            TextSpan(
-              text: 'Sign up',
-              style: TextStyle(
-                color: Color.fromARGB(255, 82, 135, 179),
-              ),
-              recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                  print('Sign up clicked');
-                  ref.read(showRegisterForm.notifier).state =
-                      !ref.read(showRegisterForm);
-                },
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'No account? ',
+            style: GoogleFonts.lato(
+              color: Colors.white54,
+              fontSize: 18,
             ),
-          ],
-        ),
+          ),
+          GestureDetector(
+            onTap: () {
+              ref.read(showRegisterForm.notifier).state =
+                  !ref.read(showRegisterForm);
+            },
+            child: ShimmerEffect(
+              baseColor: Color.fromARGB(255, 82, 135, 179),
+              highlightColor: Colors.white70,
+              duration: Duration(milliseconds: 1500),
+              child: Text(
+                'Sign up',
+                style: GoogleFonts.lato(
+                  color: Color.fromARGB(255, 82, 135, 179),
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
       const SizedBox(height: 20),
       const Divider(

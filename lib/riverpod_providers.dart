@@ -11,3 +11,9 @@ final showRegisterForm = StateProvider<bool>(
     return false;
   },
 );
+
+final recordedNoteChosen = StateProvider<bool>(
+  (ref) {
+    return false;
+  },
+);

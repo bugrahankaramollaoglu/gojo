@@ -6,6 +6,7 @@ import 'package:gojo/main_page.dart';
 import 'package:gojo/riverpod_providers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shimmer_effect/shimmer_effect.dart';
 
 class SignInForm extends ConsumerStatefulWidget {
   SignInForm({super.key});
@@ -148,23 +149,35 @@ class _SignInFormState extends ConsumerState<SignInForm> {
                         },
                       ),
                       const SizedBox(height: 30),
-                      RichText(
-                        text: TextSpan(
-                          style: GoogleFonts.lato(
-                            color: Colors.white54,
-                            fontSize: 18,
-                          ),
-                          children: <TextSpan>[
-                            TextSpan(text: 'Forgot password? '),
-                            TextSpan(
-                              text: 'Send email',
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 82, 135, 179),
-                              ),
-                              recognizer: TapGestureRecognizer()..onTap = () {},
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Forgot password? ',
+                            style: GoogleFonts.lato(
+                              color: Colors.white54,
+                              fontSize: 18,
                             ),
-                          ],
-                        ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              //TODO FORGOT PASSWORD
+                            },
+                            child: ShimmerEffect(
+                              baseColor: Color.fromARGB(255, 82, 135, 179),
+                              highlightColor: Colors.white70,
+                              duration: Duration(milliseconds: 1500),
+                              child: Text(
+                                'Send Email',
+                                style: GoogleFonts.lato(
+                                  color: Color.fromARGB(255, 82, 135, 179),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 30),
                       Divider(
