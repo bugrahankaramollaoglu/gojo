@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gojo/main_page.dart';
+import 'package:gojo/riverpod_providers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 import 'package:shimmer_effect/shimmer_effect.dart';
 
-class AddPage extends StatefulWidget {
-  const AddPage({super.key});
+class AddPage extends ConsumerWidget {
+  AddPage({super.key});
 
-  @override
-  State<AddPage> createState() => _AddPageState();
-}
+//   @override
+//   State<AddPage> createState() => _AddPageState();
+// }
 
-class _AddPageState extends State<AddPage> {
+// class _AddPageState extends State<AddPage> {
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
 
-  void _saveNote() {
+/*   void _saveNote() {
     final title = _titleController.text;
     final description = _descriptionController.text;
 
@@ -30,7 +32,7 @@ class _AddPageState extends State<AddPage> {
     _titleController.clear();
     _descriptionController.clear();
     // Navigator.pop(context);
-  }
+  } */
 
   DateTime? _selectedDateTime;
 
@@ -61,15 +63,17 @@ class _AddPageState extends State<AddPage> {
           pickedTime.minute,
         );
 
-        setState(() {
+        /*  setState(() {
           _selectedDateTime = selectedDateTime;
-        });
+        }); */
       }
     }
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    bool isRecordedChosen = ref.watch(recordedNoteChosen);
+
     return Container(
       child: Stack(
         children: [
@@ -118,21 +122,35 @@ class _AddPageState extends State<AddPage> {
                     baseColor: Colors.white,
                     highlightColor: Colors.white54,
                     loop: 1,
-                    child: Column(
-                      children: [
-                        Text(
-                          'Write',
-                          style: GoogleFonts.kreon(
-                            color: Colors.white,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w900,
+                    child: GestureDetector(
+                      onTap: () {
+                        if (ref.read(recordedNoteChosen.notifier).state) {
+                          ref.read(recordedNoteChosen.notifier).state =
+                              !ref.read(recordedNoteChosen);
+                        }
+                      },
+                      child: Column(
+                        children: [
+                          Text(
+                            'Write',
+                            style: GoogleFonts.kreon(
+                              color: isRecordedChosen
+                                  ? Colors.white70
+                                  : Colors.white,
+                              fontSize: 25,
+                              fontWeight: isRecordedChosen
+                                  ? FontWeight.w100
+                                  : FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        Icon(
-                          IconlyBold.paper,
-                          color: Colors.white,
-                        ),
-                      ],
+                          Icon(
+                            IconlyBold.paper,
+                            color: isRecordedChosen
+                                ? Colors.white70
+                                : Colors.white,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Padding(
@@ -141,29 +159,43 @@ class _AddPageState extends State<AddPage> {
                       'or',
                       style: GoogleFonts.kreon(
                         color: Colors.white,
-                        fontSize: 26,
+                        fontSize: 20,
                       ),
                     ),
                   ),
-                  ShimmerEffect(
-                    baseColor: Colors.white,
-                    highlightColor: Colors.white54,
-                    loop: 1,
-                    child: Column(
-                      children: [
-                        Text(
-                          'Record',
-                          style: GoogleFonts.kreon(
-                            color: Colors.white,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w100,
+                  GestureDetector(
+                    onTap: () {
+                      if (!ref.read(recordedNoteChosen)) {
+                        ref.read(recordedNoteChosen.notifier).state =
+                            !ref.read(recordedNoteChosen);
+                      }
+                    },
+                    child: ShimmerEffect(
+                      baseColor: Colors.white,
+                      highlightColor: Colors.white54,
+                      loop: 1,
+                      child: Column(
+                        children: [
+                          Text(
+                            'Record',
+                            style: GoogleFonts.kreon(
+                              color: isRecordedChosen
+                                  ? Colors.white
+                                  : Colors.white70,
+                              fontSize: 25,
+                              fontWeight: isRecordedChosen
+                                  ? FontWeight.bold
+                                  : FontWeight.w100,
+                            ),
                           ),
-                        ),
-                        Icon(
-                          IconlyBold.voice_2,
-                          color: Colors.white,
-                        ),
-                      ],
+                          Icon(
+                            IconlyBold.voice_2,
+                            color: isRecordedChosen
+                                ? Colors.white
+                                : Colors.white70,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -273,7 +305,8 @@ class _AddPageState extends State<AddPage> {
                   child: ElevatedButton(
                     onPressed: () {
                       // signOut(context);
-                      _saveNote();
+                      // _saveNote();
+                      print('isRecordedChosen: $isRecordedChosen');
                     },
                     child: ShimmerEffect(
                       baseColor: Colors.white,
