@@ -1,4 +1,3 @@
-import 'package:crystal_navigation_bar/crystal_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +19,7 @@ void signOut(BuildContext context) async {
 }
 
 class MainPage extends StatefulWidget {
-  MainPage({super.key});
+  const MainPage({super.key});
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -30,9 +29,9 @@ class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
   List<Widget> tabItems = [
-    HomePage(),
+    const HomePage(),
     AddPage(),
-    CalendarPage(),
+    const CalendarPage(),
   ];
 
   @override
@@ -53,11 +52,11 @@ class _MainPageState extends State<MainPage> {
         }),
         items: [
           FlashyTabBarItem(
-            icon: Icon(
+            icon: const Icon(
               IconlyBold.home,
               color: Colors.white,
             ),
-            title: Text(
+            title: const Text(
               'Home',
               style: TextStyle(
                 color: Colors.white,
@@ -65,11 +64,11 @@ class _MainPageState extends State<MainPage> {
             ),
           ),
           FlashyTabBarItem(
-            icon: Icon(
+            icon: const Icon(
               IconlyBold.plus,
               color: Colors.white,
             ),
-            title: Text(
+            title: const Text(
               'Add Note',
               style: TextStyle(
                 color: Colors.white,
@@ -77,11 +76,11 @@ class _MainPageState extends State<MainPage> {
             ),
           ),
           FlashyTabBarItem(
-            icon: Icon(
+            icon: const Icon(
               IconlyBold.calendar,
               color: Colors.white,
             ),
-            title: Text(
+            title: const Text(
               'Calendar',
               style: TextStyle(
                 color: Colors.white,

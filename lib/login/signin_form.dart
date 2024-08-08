@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,7 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shimmer_effect/shimmer_effect.dart';
 
 class SignInForm extends ConsumerStatefulWidget {
-  SignInForm({super.key});
+  const SignInForm({super.key});
 
   @override
   _SignInFormState createState() => _SignInFormState();
@@ -33,7 +32,7 @@ class _SignInFormState extends ConsumerState<SignInForm> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => MainPage(),
+            builder: (context) => const MainPage(),
           ),
         );
       } on FirebaseAuthException catch (e) {
@@ -66,7 +65,7 @@ class _SignInFormState extends ConsumerState<SignInForm> {
                       TextFormField(
                         controller: _emailController,
                         cursorColor: Colors.white38,
-                        style: TextStyle(color: Colors.white60),
+                        style: const TextStyle(color: Colors.white60),
                         keyboardType: TextInputType.emailAddress,
                         decoration: const InputDecoration(
                           labelText: 'Email',
@@ -102,14 +101,14 @@ class _SignInFormState extends ConsumerState<SignInForm> {
                           labelText: 'Password',
                           fillColor: Colors.transparent,
                           filled: true,
-                          labelStyle: TextStyle(color: Colors.white54),
-                          border: OutlineInputBorder(
+                          labelStyle: const TextStyle(color: Colors.white54),
+                          border: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.blue),
                           ),
-                          focusedBorder: OutlineInputBorder(
+                          focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white70),
                           ),
-                          enabledBorder: OutlineInputBorder(
+                          enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white38),
                           ),
                           suffixIcon: IconButton(
@@ -129,7 +128,7 @@ class _SignInFormState extends ConsumerState<SignInForm> {
                             },
                           ),
                         ),
-                        style: TextStyle(color: Colors.white60),
+                        style: const TextStyle(color: Colors.white60),
                         obscureText: _obscureText,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -164,13 +163,13 @@ class _SignInFormState extends ConsumerState<SignInForm> {
                               //TODO FORGOT PASSWORD
                             },
                             child: ShimmerEffect(
-                              baseColor: Color.fromARGB(255, 82, 135, 179),
+                              baseColor: const Color.fromARGB(255, 82, 135, 179),
                               highlightColor: Colors.white70,
-                              duration: Duration(milliseconds: 1500),
+                              duration: const Duration(milliseconds: 1500),
                               child: Text(
                                 'Send Email',
                                 style: GoogleFonts.lato(
-                                  color: Color.fromARGB(255, 82, 135, 179),
+                                  color: const Color.fromARGB(255, 82, 135, 179),
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -180,7 +179,7 @@ class _SignInFormState extends ConsumerState<SignInForm> {
                         ],
                       ),
                       const SizedBox(height: 30),
-                      Divider(
+                      const Divider(
                         color: Colors.white24,
                         thickness: 1,
                         endIndent: 30,
@@ -199,7 +198,7 @@ class _SignInFormState extends ConsumerState<SignInForm> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(7),
                           ),
-                          minimumSize: Size(250, 45),
+                          minimumSize: const Size(250, 45),
                         ),
                         onPressed: _signIn,
                         child: Text(
@@ -211,14 +210,14 @@ class _SignInFormState extends ConsumerState<SignInForm> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       OutlinedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white.withOpacity(0.85),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(7),
                           ),
-                          minimumSize: Size(250, 45),
+                          minimumSize: const Size(250, 45),
                         ),
                         onPressed: () {
                           ref.read(showEmailForm.notifier).state =

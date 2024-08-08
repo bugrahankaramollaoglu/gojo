@@ -1,4 +1,6 @@
 # This is a generated file; do not edit or check into version control.
+cloud_firestore=/home/bugra/.pub-cache/hosted/pub.dev/cloud_firestore-5.2.1/
+cloud_firestore_web=/home/bugra/.pub-cache/hosted/pub.dev/cloud_firestore_web-4.1.1/
 firebase_auth=/home/bugra/.pub-cache/hosted/pub.dev/firebase_auth-5.1.4/
 firebase_auth_web=/home/bugra/.pub-cache/hosted/pub.dev/firebase_auth_web-5.12.5/
 firebase_core=/home/bugra/.pub-cache/hosted/pub.dev/firebase_core-3.3.0/
@@ -23,3 +25,4 @@ record_darwin=/home/bugra/.pub-cache/hosted/pub.dev/record_darwin-1.1.1/
 record_linux=/home/bugra/.pub-cache/hosted/pub.dev/record_linux-0.7.2/
 record_web=/home/bugra/.pub-cache/hosted/pub.dev/record_web-1.1.1/
 record_windows=/home/bugra/.pub-cache/hosted/pub.dev/record_windows-1.0.3/
+sqflite=/home/bugra/.pub-cache/hosted/pub.dev/sqflite-2.3.3+1/

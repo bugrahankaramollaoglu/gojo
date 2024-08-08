@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gojo/main.dart';
@@ -36,7 +35,7 @@ class LoginPage extends ConsumerWidget {
         if (userCredential.user != null) {
           Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => MainPage()),
+            MaterialPageRoute(builder: (context) => const MainPage()),
             (route) => false,
           );
         }
@@ -60,7 +59,6 @@ class LoginPage extends ConsumerWidget {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
-    } on FirebaseAuthException {
     } finally {}
   }
 
@@ -74,9 +72,9 @@ class LoginPage extends ConsumerWidget {
 
     Widget currentView;
     if (isShowRegister) {
-      currentView = RegisterForm();
+      currentView = const RegisterForm();
     } else if (isShowEmail) {
-      currentView = SignInForm();
+      currentView = const SignInForm();
     } else {
       currentView = LoginForm(context, ref);
     }
@@ -115,7 +113,7 @@ Future<void> signInWithGoogle(BuildContext context) async {
       if (userCredential.user != null) {
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => MainPage()),
+          MaterialPageRoute(builder: (context) => const MainPage()),
           (route) => false,
         );
       }
@@ -219,13 +217,13 @@ Widget LoginForm(BuildContext context, WidgetRef ref) {
                   !ref.read(showRegisterForm);
             },
             child: ShimmerEffect(
-              baseColor: Color.fromARGB(255, 82, 135, 179),
+              baseColor: const Color.fromARGB(255, 82, 135, 179),
               highlightColor: Colors.white70,
-              duration: Duration(milliseconds: 1500),
+              duration: const Duration(milliseconds: 1500),
               child: Text(
                 'Sign up',
                 style: GoogleFonts.lato(
-                  color: Color.fromARGB(255, 82, 135, 179),
+                  color: const Color.fromARGB(255, 82, 135, 179),
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),

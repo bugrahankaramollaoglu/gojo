@@ -1,84 +1,69 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gojo/main_page.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gojo/riverpod_providers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 import 'package:shimmer_effect/shimmer_effect.dart';
 
-void saveNote(BuildContext context, TextEditingController _titleController,
-    TextEditingController _descriptionController) {
-  final title = _titleController.text;
-  final description = _descriptionController.text;
+final selectedDateTimeProvider = StateProvider<DateTime?>((ref) => null);
 
-  // Save note logic here
+void saveNote(BuildContext context, TextEditingController titleController,
+    TextEditingController descriptionController,
+    {DateTime? selectedDateTime}) {
+  final title = titleController.text;
+  final description = descriptionController.text;
 
-  // Show a Snackbar as feedback
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(content: Text('Note saved successfully!')),
+  if (title.isEmpty) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Title cannot be empty!')),
+    );
+    return;
+  } else {}
+
+  titleController.clear();
+  descriptionController.clear();
+}
+
+Future<void> selectDateTime(BuildContext context, WidgetRef ref) async {
+  final DateTime? initialDate = ref.read(selectedDateTimeProvider);
+  final DateTime? selectedDate = await showDatePicker(
+    context: context,
+    initialDate: initialDate ?? DateTime.now(),
+    firstDate: DateTime(2000),
+    lastDate: DateTime(2101),
   );
 
-  // Clear the fields and go back
-  _titleController.clear();
-  _descriptionController.clear();
-  // Navigator.pop(context);
+  if (selectedDate != null) {
+    final TimeOfDay? selectedTime = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.fromDateTime(initialDate ?? DateTime.now()),
+    );
+
+    if (selectedTime != null) {
+      final DateTime selectedDateTime = DateTime(
+        selectedDate.year,
+        selectedDate.month,
+        selectedDate.day,
+        selectedTime.hour,
+        selectedTime.minute,
+      );
+      ref.read(selectedDateTimeProvider.notifier).state = selectedDateTime;
+    }
+  }
 }
 
 class AddPage extends ConsumerWidget {
   AddPage({super.key});
 
-//   @override
-//   State<AddPage> createState() => _AddPageState();
-// }
-
-// class _AddPageState extends State<AddPage> {
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
-
-  DateTime? _selectedDateTime;
-
-  bool _isRecording = false;
-  bool _isRecordingVisible = false;
-  String? _filePath;
-
-  // Function to show the date and time picker dialog
-  Future<void> selectDateTime(BuildContext context) async {
-    // Show date picker
-    DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime(2100),
-    );
-
-    if (pickedDate != null) {
-      // Show time picker
-      TimeOfDay? pickedTime = await showTimePicker(
-        context: context,
-        initialTime: TimeOfDay.now(),
-      );
-
-      if (pickedTime != null) {
-        // Combine date and time
-        final selectedDateTime = DateTime(
-          pickedDate.year,
-          pickedDate.month,
-          pickedDate.day,
-          pickedTime.hour,
-          pickedTime.minute,
-        );
-
-        /*  setState(() {
-          _selectedDateTime = selectedDateTime;
-        }); */
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     bool isRecordedChosen = ref.watch(recordedNoteChosen);
-
+    // final selectedDateTime = ref.watch(selectedDateTimeProvider.notifier).state;
+    final selectedDateTime = ref.watch(selectedDateTimeProvider);
     return Container(
       child: Stack(
         children: [
@@ -157,16 +142,7 @@ class AddPage extends ConsumerWidget {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Text(
-                    'or',
-                    style: GoogleFonts.kreon(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
+                SizedBox(width: 30),
                 GestureDetector(
                   onTap: () {
                     if (!ref.read(recordedNoteChosen)) {
@@ -205,13 +181,38 @@ class AddPage extends ConsumerWidget {
             ),
           ),
           Positioned(
-              child: isRecordedChosen
-                  ? recordedNoteContent()
-                  : writtenNoteContent(context, _titleController,
-                      _descriptionController, isRecordedChosen)),
+            child: isRecordedChosen
+                ? recordedNoteContent()
+                : writtenNoteContent(
+                    context,
+                    _titleController,
+                    _descriptionController,
+                    isRecordedChosen,
+                    selectedDateTime,
+                    _monthName,
+                    ref,
+                  ),
+          ),
         ],
       ),
     );
+  }
+
+  String _monthName(int month) {
+    return [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec'
+    ][month - 1];
   }
 }
 
@@ -220,16 +221,20 @@ Widget recordedNoteContent() {
 }
 
 Widget writtenNoteContent(
-    BuildContext context,
-    TextEditingController _titleController,
-    TextEditingController _descriptionController,
-    bool isRecordedChosen) {
+  BuildContext context,
+  TextEditingController titleController,
+  TextEditingController descriptionController,
+  bool isRecordedChosen,
+  DateTime? selectedDateTime,
+  String Function(int) monthName,
+  WidgetRef ref,
+) {
   return Padding(
     padding: const EdgeInsets.all(16.0),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 150),
+        const SizedBox(height: 150),
         Text(
           'Title of Note (*)',
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -237,22 +242,22 @@ Widget writtenNoteContent(
                 color: Colors.white70,
               ),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
           elevation: 5,
           child: TextField(
-            controller: _titleController,
-            decoration: InputDecoration(
+            controller: titleController,
+            decoration: const InputDecoration(
               contentPadding: EdgeInsets.all(16),
               hintText: 'Enter the title of your note...',
               border: InputBorder.none,
             ),
           ),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         Text(
           'Deadline & Category',
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -260,37 +265,43 @@ Widget writtenNoteContent(
                 color: Colors.white70,
               ),
         ),
-        SizedBox(height: 10),
-        // Fixed Row Layout
+        const SizedBox(height: 10),
         Row(
           children: [
             Expanded(
-              flex: 2, // 2 parts of the width
+              flex: 2,
               child: GestureDetector(
-                // onTap: () => selectDateTime(context),
+                onTap: () {
+                  selectDateTime(context, ref);
+                },
                 child: Card(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Icon(
-                      Icons.calendar_month_rounded,
-                      size: 50,
-                    ),
+                    child: selectedDateTime == null
+                        ? const Icon(
+                            FontAwesomeIcons.calendar,
+                            size: 45,
+                          )
+                        : const Icon(
+                            FontAwesomeIcons.calendarCheck,
+                            size: 45,
+                          ),
                   ),
                 ),
               ),
             ),
-            SizedBox(width: 16), // Add spacing between cards
+            const SizedBox(width: 16),
             Expanded(
-              flex: 4, // 4 parts of the width
+              flex: 4,
               child: Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                child: const Padding(
+                  padding: EdgeInsets.all(16.0),
                   child: Icon(
                     Icons.category_rounded,
                     size: 45,
@@ -300,7 +311,7 @@ Widget writtenNoteContent(
             ),
           ],
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Text(
           'Note Description',
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -308,30 +319,37 @@ Widget writtenNoteContent(
                 color: Colors.white70,
               ),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
           elevation: 5,
           child: TextField(
-            controller: _descriptionController,
+            controller: descriptionController,
             maxLines: 5,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               contentPadding: EdgeInsets.all(16),
               hintText: 'Enter the description of your note...',
               border: InputBorder.none,
             ),
           ),
         ),
-        SizedBox(height: 30),
+        const SizedBox(height: 30),
         Center(
           child: ElevatedButton(
             onPressed: () {
-              // signOut(context);
-              saveNote(context, _titleController, _descriptionController);
-              print('isRecordedChosen: $isRecordedChosen');
+              saveNote(context, titleController, descriptionController);
+              print('date: $selectedDateTime');
             },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blue,
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+              textStyle: const TextStyle(fontSize: 18),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
             child: ShimmerEffect(
               baseColor: Colors.white,
               highlightColor: Colors.blue,
@@ -342,14 +360,6 @@ Widget writtenNoteContent(
                   color: Colors.white,
                   fontSize: 20,
                 ),
-              ),
-            ),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blue,
-              padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-              textStyle: TextStyle(fontSize: 18),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
               ),
             ),
           ),

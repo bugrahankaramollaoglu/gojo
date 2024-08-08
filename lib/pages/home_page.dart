@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:iconly/iconly.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -36,12 +35,12 @@ class _HomePageState extends State<HomePage> {
     return Container(
       child: Column(
         children: [
-          SizedBox(height: 20),
-          Row(
+          const SizedBox(height: 20),
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(28.0, 28, 28, 20),
+                padding: EdgeInsets.fromLTRB(28.0, 28, 28, 20),
                 child: Icon(
                   Icons.menu,
                   size: 30,
@@ -49,11 +48,11 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(28.0, 28, 28, 20),
+                padding: EdgeInsets.fromLTRB(28.0, 28, 28, 20),
                 child: CircleAvatar(
                   radius: 15,
                   backgroundColor: Colors.transparent,
-                  backgroundImage: const AssetImage(
+                  backgroundImage: AssetImage(
                     'assets/crown.png',
                   ),
                 ),
@@ -76,26 +75,26 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-Widget searchText(TextEditingController _searchController) {
+Widget searchText(TextEditingController searchController) {
   return Padding(
     padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
     child: TextField(
-      controller: _searchController,
+      controller: searchController,
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.transparent,
         hintText: 'Search a note or task...',
-        hintStyle: TextStyle(
+        hintStyle: const TextStyle(
           color: Colors.grey,
           fontSize: 18,
           fontWeight: FontWeight.normal,
         ),
-        suffixIcon: Icon(
+        suffixIcon: const Icon(
           Icons.search,
           color: Colors.white70,
         ),
         border: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white70),
+          borderSide: const BorderSide(color: Colors.white70),
           borderRadius: BorderRadius.circular(5.0),
         ),
       ),
