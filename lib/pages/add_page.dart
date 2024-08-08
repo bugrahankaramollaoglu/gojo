@@ -5,17 +5,33 @@ import 'package:gojo/riverpod_providers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 import 'package:shimmer_effect/shimmer_effect.dart';
+import 'package:record/record.dart';
 
 class AddPage extends ConsumerWidget {
   AddPage({super.key});
 
-//   @override
-//   State<AddPage> createState() => _AddPageState();
-// }
-
-// class _AddPageState extends State<AddPage> {
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
+
+  final _record = AudioRecorder();
+  bool _isRecording = false;
+
+  Future<void> _startRecording() async {
+    try {
+      await _record.start(const RecordConfig(), path: './deneme.mp3');
+    } catch (e) {
+      print('Error starting recording: $e');
+    }
+  }
+
+  Future<void> _stopRecording() async {
+    try {
+      final path = await _record.stop();
+      print('Recording saved to $path');
+    } catch (e) {
+      print('Error stopping recording: $e');
+    }
+  }
 
 /*   void _saveNote() {
     final title = _titleController.text;
@@ -35,6 +51,9 @@ class AddPage extends ConsumerWidget {
   } */
 
   DateTime? _selectedDateTime;
+
+  bool _isRecordingVisible = false;
+  String? _filePath;
 
   // Function to show the date and time picker dialog
   Future<void> selectDateTime(BuildContext context) async {
@@ -211,50 +230,9 @@ class AddPage extends ConsumerWidget {
 }
 
 Widget recordedNoteContent() {
-  return Padding(
-    padding: const EdgeInsets.all(16.0),
+  return Container(
     child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(height: 150),
-        Text(
-          'Recorded Note',
-          style: TextStyle(
-            color: Colors.white70,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        SizedBox(height: 20),
-        Center(
-          child: ElevatedButton(
-            onPressed: () {
-              // signOut(context);
-              // _saveNote();
-            },
-            child: ShimmerEffect(
-              baseColor: Colors.white,
-              highlightColor: Colors.blue,
-              loop: 5,
-              child: Text(
-                'Save Note',
-                style: GoogleFonts.kreon(
-                  color: Colors.white,
-                  fontSize: 20,
-                ),
-              ),
-            ),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blue,
-              padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-              textStyle: TextStyle(fontSize: 18),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-          ),
-        ),
-      ],
+      children: [],
     ),
   );
 }
