@@ -7,9 +7,33 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shimmer_effect/shimmer_effect.dart';
 
-class SignInForm extends ConsumerStatefulWidget {
-  const SignInForm({super.key});
 
+/* class RegisterForm extends ConsumerStatefulWidget {
+  final double screenWidth;
+  final double screenHeight;
+
+  const RegisterForm({
+    required this.screenWidth,
+    required this.screenHeight,
+    super.key,
+  });
+
+  @override
+  _RegisterFormState createState() => _RegisterFormState();
+} */
+
+class SignInForm extends ConsumerStatefulWidget {
+  const SignInForm(double screenWidth, double screenHeight, {super.key});
+/*
+  final double screenWidth;
+  final double screenHeight;
+
+  const RegisterForm({
+    required this.screenWidth,
+    required this.screenHeight,
+    super.key,
+  });
+ */
   @override
   _SignInFormState createState() => _SignInFormState();
 }
@@ -228,7 +252,7 @@ class _SignInFormState extends ConsumerState<SignInForm> {
                         child: Text(
                           'Go back',
                           style: GoogleFonts.kreon(
-                            fontSize: 25,
+                            fontSize: screenWidth / 22,
                             fontWeight: FontWeight.bold,
                             color: Colors.black87,
                           ),

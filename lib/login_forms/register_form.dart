@@ -7,20 +7,36 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shimmer_effect/shimmer_effect.dart';
 
 class RegisterForm extends ConsumerStatefulWidget {
-  const RegisterForm({super.key});
+  final double screenWidth;
+  final double screenHeight;
+
+  const RegisterForm({
+    required this.screenWidth,
+    required this.screenHeight,
+    super.key,
+  });
 
   @override
   _RegisterFormState createState() => _RegisterFormState();
 }
 
 class _RegisterFormState extends ConsumerState<RegisterForm> {
+  late final double screenWidth;
+  late final double screenHeight;
+
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final _auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
-  String? _errorMessage;
-  bool _obscureText = true; // State for password visibility
+  bool _obscureText = true;
+
+  @override
+  void initState() {
+    super.initState();
+    screenWidth = widget.screenWidth;
+    screenHeight = widget.screenHeight;
+  }
 
   Future<void> _register() async {
     if (_formKey.currentState?.validate() ?? false) {
@@ -30,9 +46,9 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
           password: _passwordController.text.trim(),
         );
       } on FirebaseAuthException catch (e) {
-        setState(() {
-          _errorMessage = e.message;
-        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('${e.message}')),
+        );
       }
     }
   }
@@ -41,11 +57,14 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Positioned(
-          child: Image.asset('assets/lambs.png'),
+        Expanded(
+          flex: 2,
+          child: Positioned(
+            child: Image.asset('assets/lambs.png'),
+          ),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(16, 200, 16, 0),
+          padding: EdgeInsets.fromLTRB(16, screenHeight * 0.3, 16, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -78,15 +97,25 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your email';
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  content: Text('Please enter your email')),
+                            );
+                            // return 'Please enter your email';
                           }
-                          if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                            return 'Please enter a valid email address';
+                          if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
+                              .hasMatch(value!)) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  content: Text(
+                                      'Please enter a valid email address')),
+                            );
+                            // return 'Please enter a valid email address';
                           }
                           return null;
                         },
                       ),
-                      const SizedBox(height: 20),
+                      SizedBox(height: screenHeight / 40),
                       TextFormField(
                         controller: _passwordController,
                         cursorColor: Colors.white38,
@@ -126,22 +155,36 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                         obscureText: _obscureText,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your password';
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  content: Text('Please enter your password')),
+                            );
+                            return null;
                           }
 
                           final hasDigit = RegExp(r'\d').hasMatch(value);
                           final isValidLength = value.length >= 8;
 
                           if (!hasDigit) {
-                            return 'Password must contain at least one digit';
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  content: Text(
+                                      'Password must contain at least one digit')),
+                            );
+                            // return 'Password must contain at least one digit';
                           }
                           if (!isValidLength) {
-                            return 'Password must be at least 8 characters long';
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  content: Text(
+                                      'Password must be at least 8 characters long')),
+                            );
+                            // return 'Password must be at least 8 characters long';
                           }
                           return null;
                         },
                       ),
-                      const SizedBox(height: 20),
+                      SizedBox(height: screenHeight / 40),
                       TextFormField(
                         controller: _confirmPasswordController,
                         cursorColor: Colors.white38,
@@ -181,15 +224,23 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                         obscureText: _obscureText,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please confirm your password';
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  content:
+                                      Text('Please confirm your password')),
+                            );
+                            // return 'Please confirm your password';
                           }
                           if (value != _passwordController.text) {
-                            return 'Passwords do not match';
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Passwords do not match')),
+                            );
+                            // return 'Passwords do not match';
                           }
                           return null;
                         },
                       ),
-                      const SizedBox(height: 30),
+                      SizedBox(height: screenHeight / 40),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -197,7 +248,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                             'Already have an account? ',
                             style: GoogleFonts.lato(
                               color: Colors.white54,
-                              fontSize: 18,
+                              fontSize: screenWidth / 27,
                             ),
                           ),
                           GestureDetector(
@@ -206,14 +257,16 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                                   !ref.read(showRegisterForm);
                             },
                             child: ShimmerEffect(
-                              baseColor: const Color.fromARGB(255, 82, 135, 179),
+                              baseColor:
+                                  const Color.fromARGB(255, 82, 135, 179),
                               highlightColor: Colors.white70,
                               duration: const Duration(milliseconds: 1500),
                               child: Text(
                                 'Sign in',
                                 style: GoogleFonts.lato(
-                                  color: const Color.fromARGB(255, 82, 135, 179),
-                                  fontSize: 18,
+                                  color:
+                                      const Color.fromARGB(255, 82, 135, 179),
+                                  fontSize: screenWidth / 27,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -221,19 +274,13 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 30),
+                      SizedBox(height: screenHeight / 50),
                       const Divider(
                         color: Colors.white24,
                         thickness: 1,
                         endIndent: 30,
                         indent: 30,
                       ),
-                      const SizedBox(height: 10),
-                      if (_errorMessage != null)
-                        Text(
-                          _errorMessage!,
-                          style: const TextStyle(color: Colors.red),
-                        ),
                       const SizedBox(height: 20),
                       OutlinedButton(
                         style: ElevatedButton.styleFrom(
@@ -247,13 +294,13 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                         child: Text(
                           'Register',
                           style: GoogleFonts.kreon(
-                            fontSize: 25,
+                            fontSize: screenWidth / 22,
                             fontWeight: FontWeight.bold,
                             color: Colors.black87,
                           ),
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      SizedBox(height: screenHeight / 80),
                       OutlinedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white.withOpacity(0.85),
@@ -269,12 +316,13 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                         child: Text(
                           'Go back',
                           style: GoogleFonts.kreon(
-                            fontSize: 25,
+                            fontSize: screenWidth / 22,
                             fontWeight: FontWeight.bold,
                             color: Colors.black87,
                           ),
                         ),
                       ),
+                      SizedBox(height: screenHeight / 30),
                     ],
                   ),
                 ),

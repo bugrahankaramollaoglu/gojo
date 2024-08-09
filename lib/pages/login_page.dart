@@ -72,11 +72,14 @@ class LoginPage extends ConsumerWidget {
 
     Widget currentView;
     if (isShowRegister) {
-      currentView = const RegisterForm();
+      currentView = RegisterForm(
+        screenHeight: screenHeight,
+        screenWidth: screenWidth,
+      );
     } else if (isShowEmail) {
-      currentView = const SignInForm();
+      currentView = SignInForm(screenWidth, screenHeight);
     } else {
-      currentView = LoginForm(context, ref);
+      currentView = LoginForm(context, ref, screenWidth, screenHeight);
     }
 
     return Scaffold(
@@ -131,24 +134,25 @@ Future<void> signInWithGoogle(BuildContext context) async {
   }
 }
 
-Widget LoginForm(BuildContext context, WidgetRef ref) {
+Widget LoginForm(BuildContext context, WidgetRef ref, double screenWidth,
+    double screenHeight) {
   return Column(
     children: [
+      SizedBox(height: screenHeight / 12),
       Center(
         child: Text(
           'Gojo, a simple way to\nremember',
           textAlign: TextAlign.center,
           style: GoogleFonts.kreon(
-            textStyle: const TextStyle(
-              fontSize: 30,
-              color: Colors.white,
+            textStyle: TextStyle(
+              fontSize: screenWidth / 15,
+              color: Colors.white.withOpacity(0.8),
               fontWeight: FontWeight.bold,
             ),
           ),
         ),
       ),
       Expanded(
-        flex: 2,
         child: Center(
           child: Image.asset('assets/login_photo.png'),
         ),
@@ -156,35 +160,38 @@ Widget LoginForm(BuildContext context, WidgetRef ref) {
       signinField(
         image: Image.asset(
           'assets/google.png',
-          width: 25,
-          height: 25,
+          width: screenWidth / 16,
+          height: screenWidth / 16,
         ),
         text: 'Sign in with Google',
         onPressed: () {
           signInWithGoogle(context);
         },
+        screenWidth: screenWidth,
       ),
       signinField(
         image: Image.asset(
           'assets/apple.png',
-          width: 25,
-          height: 25,
+          width: screenWidth / 16,
+          height: screenWidth / 16,
         ),
         text: 'Sign in with Apple',
         onPressed: () {},
+        screenWidth: screenWidth,
       ),
       signinField(
         image: Image.asset(
           'assets/email.png',
-          width: 25,
-          height: 25,
+          width: screenWidth / 16,
+          height: screenWidth / 16,
         ),
         text: 'Sign in with email',
         onPressed: () {
           ref.read(showEmailForm.notifier).state = !ref.read(showEmailForm);
         },
+        screenWidth: screenWidth,
       ),
-      const SizedBox(height: 30),
+      SizedBox(height: screenHeight / 30),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -192,7 +199,7 @@ Widget LoginForm(BuildContext context, WidgetRef ref) {
             'No account? ',
             style: GoogleFonts.lato(
               color: Colors.white54,
-              fontSize: 18,
+              fontSize: screenWidth / 23,
             ),
           ),
           GestureDetector(
@@ -208,7 +215,7 @@ Widget LoginForm(BuildContext context, WidgetRef ref) {
                 'Sign up',
                 style: GoogleFonts.lato(
                   color: const Color.fromARGB(255, 82, 135, 179),
-                  fontSize: 18,
+                  fontSize: screenWidth / 23,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -216,19 +223,19 @@ Widget LoginForm(BuildContext context, WidgetRef ref) {
           ),
         ],
       ),
-      const SizedBox(height: 20),
-      const Divider(
+      SizedBox(height: screenHeight / 30),
+      Divider(
         color: Color.fromARGB(255, 187, 190, 191),
         thickness: 1,
         indent: 70,
         endIndent: 70,
       ),
-      const SizedBox(height: 20),
+      SizedBox(height: screenHeight / 30),
       Text(
         '"Şifâhi olmayın, not alın."',
         style: GoogleFonts.kreon(
-          textStyle: const TextStyle(
-            fontSize: 20,
+          textStyle: TextStyle(
+            fontSize: screenWidth / 21,
             color: Color.fromARGB(255, 213, 217, 218),
           ),
         ),
@@ -236,12 +243,13 @@ Widget LoginForm(BuildContext context, WidgetRef ref) {
       Text(
         'A. Süheyl Ünver',
         style: GoogleFonts.kreon(
-          textStyle: const TextStyle(
-            fontSize: 18,
+          textStyle: TextStyle(
+            fontSize: screenWidth / 21,
             color: Color.fromARGB(255, 213, 217, 218),
           ),
         ),
       ),
+      SizedBox(height: screenHeight / 30),
     ],
   );
 }
@@ -250,9 +258,10 @@ Widget signinField({
   required Image image,
   required String text,
   required VoidCallback onPressed,
+  required double screenWidth,
 }) {
   return Padding(
-    padding: const EdgeInsets.fromLTRB(40, 20, 40, 0),
+    padding: EdgeInsets.fromLTRB(40, 20, 40, 0),
     child: OutlinedButton(
       style: OutlinedButton.styleFrom(
         shape: RoundedRectangleBorder(
@@ -261,18 +270,18 @@ Widget signinField({
       ),
       onPressed: onPressed,
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: EdgeInsets.all(12.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             image,
-            const SizedBox(width: 10),
+            SizedBox(width: screenWidth / 30),
             Text(
               text,
               style: GoogleFonts.lato(
-                textStyle: const TextStyle(
-                  fontSize: 18,
-                  color: Colors.white,
+                textStyle: TextStyle(
+                  fontSize: screenWidth / 25,
+                  color: Colors.white70,
                   fontWeight: FontWeight.bold,
                 ),
               ),
