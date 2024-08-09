@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -7,22 +9,138 @@ import 'package:iconly/iconly.dart';
 import 'package:shimmer_effect/shimmer_effect.dart';
 
 final selectedDateTimeProvider = StateProvider<DateTime?>((ref) => null);
+final selectedColorProvider = StateProvider<Color?>((ref) => null);
 
-void saveNote(BuildContext context, TextEditingController titleController,
-    TextEditingController descriptionController,
-    {DateTime? selectedDateTime}) {
-  final title = titleController.text;
-  final description = descriptionController.text;
+Widget colorPicker(BuildContext context, WidgetRef ref) {
+  final selectedColor = ref.watch(selectedColorProvider);
 
-  if (title.isEmpty) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Title cannot be empty!')),
-    );
-    return;
-  } else {}
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          'Choose a Color',
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: Colors.white70,
+              ),
+        ),
+        const SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _colorOption(Colors.red, ref, selectedColor, context),
+            const SizedBox(width: 10),
+            _colorOption(Colors.blue, ref, selectedColor, context),
+            const SizedBox(width: 10),
+            _colorOption(Colors.green, ref, selectedColor, context),
+          ],
+        ),
+        const SizedBox(height: 20),
+        if (selectedColor != null)
+          Container(
+            width: 100,
+            height: 100,
+            decoration: BoxDecoration(
+              color: selectedColor,
+              shape: BoxShape.circle,
+              border:
+                  Border.all(color: Colors.black.withOpacity(0.5), width: 2),
+            ),
+            child: Center(
+              child: Icon(
+                Icons.check,
+                color: Colors.white,
+                size: 60,
+              ),
+            ),
+          ),
+      ],
+    ),
+  );
+}
 
-  titleController.clear();
-  descriptionController.clear();
+Widget _colorOption(
+    Color color, WidgetRef ref, Color? selectedColor, BuildContext context) {
+  final isSelected = color == selectedColor;
+
+  return GestureDetector(
+    onTap: () {
+      ref.read(selectedColorProvider.notifier).state = color;
+      Navigator.of(context).pop();
+    },
+    child: Container(
+      width: 50,
+      height: 50,
+      decoration: BoxDecoration(
+        color: color,
+        shape: BoxShape.circle,
+        border: isSelected ? Border.all(color: Colors.black, width: 2) : null,
+      ),
+      child: Center(
+        child: isSelected
+            ? Icon(
+                Icons.check,
+                color: Colors.white,
+              )
+            : null,
+      ),
+    ),
+  );
+}
+
+Future<void> saveNote(BuildContext context, titleController,
+    TextEditingController descriptionController, WidgetRef ref) async {
+  try {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    final title = titleController.text;
+    final description = descriptionController.text;
+    final selectedDateTime = ref.read(selectedDateTimeProvider);
+    final selectedCategory = ref.read(selectedColorProvider);
+
+    var categoryName = '';
+
+    DateTime timestamp = DateTime.now();
+
+    if (selectedCategory == Colors.red) {
+      categoryName = 'Red';
+    } else if (selectedCategory == Colors.blue) {
+      categoryName = 'Blue';
+    } else if (selectedCategory == Colors.green) {
+      categoryName = 'Green';
+    }
+
+    Map<String, dynamic> noteData = {
+      'title': title,
+      'deadline': selectedDateTime,
+      'category': categoryName,
+      'description': description,
+      'userEmail': user?.email,
+      'savedTime': timestamp,
+    };
+
+    if (title.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Title cannot be empty!')),
+      );
+      return;
+    } else {
+      await FirebaseFirestore.instance.collection('notes').add(noteData);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Note saved!')),
+      );
+
+      titleController.clear();
+      descriptionController.clear();
+      ref.read(selectedDateTimeProvider.notifier).state = null;
+      ref.read(selectedColorProvider.notifier).state = null;
+    }
+  } catch (e) {
+    print('Failed to save note: $e');
+  }
 }
 
 Future<void> selectDateTime(BuildContext context, WidgetRef ref) async {
@@ -62,8 +180,9 @@ class AddPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     bool isRecordedChosen = ref.watch(recordedNoteChosen);
-    // final selectedDateTime = ref.watch(selectedDateTimeProvider.notifier).state;
+
     final selectedDateTime = ref.watch(selectedDateTimeProvider);
+
     return Container(
       child: Stack(
         children: [
@@ -99,7 +218,7 @@ class AddPage extends ConsumerWidget {
               height: 400,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.teal.withOpacity(0.5),
+                color: Colors.teal.withOpacity(0.6),
               ),
             ),
           ),
@@ -217,7 +336,29 @@ class AddPage extends ConsumerWidget {
 }
 
 Widget recordedNoteContent() {
-  return Container();
+  return Container(
+    child: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'asd',
+            style: GoogleFonts.kreon(
+              color: Colors.white,
+              fontSize: 30,
+            ),
+          ),
+          Text(
+            'asd',
+            style: GoogleFonts.kreon(
+              color: Colors.white,
+              fontSize: 30,
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
 }
 
 Widget writtenNoteContent(
@@ -229,6 +370,8 @@ Widget writtenNoteContent(
   String Function(int) monthName,
   WidgetRef ref,
 ) {
+  var selectedColor = ref.watch(selectedColorProvider);
+
   return Padding(
     padding: const EdgeInsets.all(16.0),
     child: Column(
@@ -282,11 +425,11 @@ Widget writtenNoteContent(
                     padding: const EdgeInsets.all(16.0),
                     child: selectedDateTime == null
                         ? const Icon(
-                            FontAwesomeIcons.calendar,
+                            FontAwesomeIcons.bell,
                             size: 45,
                           )
                         : const Icon(
-                            FontAwesomeIcons.calendarCheck,
+                            FontAwesomeIcons.solidBell,
                             size: 45,
                           ),
                   ),
@@ -295,16 +438,40 @@ Widget writtenNoteContent(
             ),
             const SizedBox(width: 16),
             Expanded(
-              flex: 4,
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Icon(
-                    Icons.category_rounded,
-                    size: 45,
+              flex: 3,
+              child: GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text('Select a category color  '),
+                      content: colorPicker(context, ref),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('Close'),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: selectedColor == null
+                        ? Icon(
+                            Icons.color_lens_outlined,
+                            size: 45,
+                          )
+                        : Icon(
+                            Icons.color_lens,
+                            size: 45,
+                          ),
                   ),
                 ),
               ),
@@ -339,26 +506,45 @@ Widget writtenNoteContent(
         Center(
           child: ElevatedButton(
             onPressed: () {
-              saveNote(context, titleController, descriptionController);
-              print('date: $selectedDateTime');
+              saveNote(context, titleController, descriptionController, ref);
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blue,
+              backgroundColor: const Color.fromARGB(255, 15, 85, 142),
               padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
               textStyle: const TextStyle(fontSize: 18),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
+              elevation: 10,
+              side: BorderSide(color: Colors.white70, width: 0.6),
             ),
+            child: Text(
+              'Save Note',
+              style: GoogleFonts.kreon(
+                color: Colors.white,
+                fontSize: 20,
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: 15),
+        Center(
+          child: GestureDetector(
+            onTap: () {
+              titleController.clear();
+              descriptionController.clear();
+              ref.read(selectedDateTimeProvider.notifier).state = null;
+              ref.read(selectedColorProvider.notifier).state = null;
+            },
             child: ShimmerEffect(
               baseColor: Colors.white,
-              highlightColor: Colors.blue,
-              loop: 5,
+              highlightColor: Colors.white70,
+              loop: 1,
               child: Text(
-                'Save Note',
+                'Clear fields',
                 style: GoogleFonts.kreon(
-                  color: Colors.white,
                   fontSize: 20,
+                  color: Colors.white70,
                 ),
               ),
             ),

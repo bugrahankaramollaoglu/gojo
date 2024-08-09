@@ -81,6 +81,7 @@ class _CalendarPageState extends State<CalendarPage> {
               weekendStyle: TextStyle(color: Colors.blue),
             ),
           ),
+          Image.asset('assets/register.png'),
         ],
       ),
     );

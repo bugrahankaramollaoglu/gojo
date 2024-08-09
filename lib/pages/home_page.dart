@@ -35,7 +35,6 @@ class _HomePageState extends State<HomePage> {
     return Container(
       child: Column(
         children: [
-          const SizedBox(height: 20),
           const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -59,20 +58,78 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          Image.asset('assets/gojo_dark.png', height: 220),
-          Text(
-            'A simple way to remember',
-            style: GoogleFonts.kreon(
-              color: Colors.white70,
-              fontSize: 27,
+          Image.asset('assets/gojo_dark.png', height: 200),
+          searchText(_searchController),
+          const SizedBox(height: 30),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Your Notes',
+                style: GoogleFonts.kreon(
+                  color: Colors.white70,
+                  fontSize: 25,
+                ),
+              ),
             ),
           ),
-          const SizedBox(height: 30),
-          searchText(_searchController),
+          const SizedBox(height: 15),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(
+                  'All',
+                  style: GoogleFonts.kreon(
+                    fontSize: 25,
+                    color: Color.fromARGB(255, 218, 214, 214),
+                  ),
+                ),
+              ),
+              categoryCard('Red', const Color.fromARGB(255, 206, 105, 98)),
+              categoryCard('Green', Color.fromARGB(255, 85, 146, 87)),
+              categoryCard('Blue', Color.fromARGB(255, 87, 128, 161)),
+              Icon(
+                (Icons.sort_rounded),
+                color: Colors.white,
+                size: 35,
+              ),
+            ],
+          ),
         ],
       ),
     );
   }
+}
+
+Widget categoryCard(String name, Color color) {
+  return Card(
+    elevation: 5, // Adjust elevation for shadow effect
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(15), // Rounded corners
+    ),
+    // Spacing around the card
+    child: Container(
+      padding: EdgeInsets.symmetric(vertical: 5), // Padding inside the card
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius:
+            BorderRadius.circular(10), // Match the card's rounded corners
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 18.0),
+        child: Text(
+          name,
+          style: GoogleFonts.kreon(
+            fontSize: 22,
+            color: Colors.black87, // Text color to stand out
+          ),
+        ),
+      ),
+    ),
+  );
 }
 
 Widget searchText(TextEditingController searchController) {
@@ -83,7 +140,7 @@ Widget searchText(TextEditingController searchController) {
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.transparent,
-        hintText: 'Search a note or task...',
+        hintText: 'Search a note...',
         hintStyle: const TextStyle(
           color: Colors.grey,
           fontSize: 18,
