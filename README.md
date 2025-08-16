@@ -59,3 +59,37 @@ An AI powered language learning app · flutter · django.
 | Subscription System | in_app_purchase + Django        | Premium feature unlock and backend verification      |
 | Admin Panel         | Django Admin                    | Manage users, content, grammar logs, etc.            |
 
+### Clean Architecture 
+
+lib/
+├── core/                      # Global utilities, themes, errors
+│   ├── exceptions/
+│   ├── network/
+│   ├── utils/
+│   └── theme/
+│
+├── features/                  # Each feature is self-contained
+│   └── language_learning/
+│       ├── data/
+│       │   ├── datasources/   # Remote & local data sources
+│       │   ├── models/        # DTOs for API or local DB
+│       │   └── repositories/  # Data layer repository impl
+│       │
+│       ├── domain/
+│       │   ├── entities/      # Core business models
+│       │   ├── repositories/  # Abstract repository interfaces
+│       │   └── usecases/      # Application-specific logic
+│       │
+│       ├── application/       # Riverpod Providers & state
+│       │   ├── providers/     
+│       │   └── notifiers/     # StateNotifiers, AsyncNotifiers
+│       │
+│       └── presentation/      
+│           ├── pages/         # UI screens
+│           ├── widgets/       # Reusable widgets
+│           └── routes/        # go_router routes
+│
+├── app.dart                   # App root widget + go_router config
+├── main.dart                  # Entry point
+└── injection.dart             # Dependency injection setup
+
