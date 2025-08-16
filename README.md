@@ -31,19 +31,19 @@ An AI powered language learning app · flutter · django.
 ### 🧠 AI Integration
 
 | Component           | Technology                      | Purpose / Notes                                     |
-|---------------------|----------------------------------|-----------------------------------------------------|
+|---------------------|----------------------------------|----------------------------------------------------|
 | AI Service          | Gemini API (Google)             | Grammar correction, explanations, chatbot, etc.     |
-| Abstraction Layer   | GeminiService / UseCase (Flutter)| Wrap AI calls inside use cases for testability      |
+| Abstraction Layer   | GeminiService / UseCase (Flutter)| Wrap AI calls inside use cases for testability     |
 
 ---
 
 ### 🌐 Backend (Custom API)
 
 | Component           | Technology                      | Purpose / Notes                                     |
-|---------------------|----------------------------------|-----------------------------------------------------|
+|---------------------|----------------------------------|----------------------------------------------------|
 | Framework           | Django + Django REST Framework  | Custom backend API, great for AI and admin tasks    |
 | Auth                | Token-based (JWT or session)    | Secure login and premium features                   |
-| AI Integration      | Gemini API via Python           | Direct API calls from backend for centralized control |
+| AI Integration      | Gemini API via Python           | API calls from backend for centralized control      |
 | Database            | PostgreSQL                      | Relational DB, scalable and production-ready        |
 
 ---
@@ -51,8 +51,8 @@ An AI powered language learning app · flutter · django.
 ### 🛠 Optional Enhancements (Planned)
 
 | Feature             | Tool/Tech                       | Purpose                                              |
-|---------------------|----------------------------------|------------------------------------------------------|
-| Error Monitoring    | Sentry                          | Crash and error tracking in production              |
+|---------------------|----------------------------------|-----------------------------------------------------|
+| Error Monitoring    | Sentry                          | Crash and error tracking in production               |
 | Secure Storage      | flutter_secure_storage          | Store auth tokens securely on device                 |
 | Analytics           | Firebase Analytics              | Track user behavior, improve UX                      |
 | Testing             | mocktail, flutter_test, pytest  | Unit and integration testing on both ends            |
@@ -61,35 +61,22 @@ An AI powered language learning app · flutter · django.
 
 ### Clean Architecture 
 
-lib/
-├── core/                      # Global utilities, themes, errors
-│   ├── exceptions/
-│   ├── network/
-│   ├── utils/
-│   └── theme/
-│
-├── features/                  # Each feature is self-contained
-│   └── language_learning/
-│       ├── data/
-│       │   ├── datasources/   # Remote & local data sources
-│       │   ├── models/        # DTOs for API or local DB
-│       │   └── repositories/  # Data layer repository impl
-│       │
-│       ├── domain/
-│       │   ├── entities/      # Core business models
-│       │   ├── repositories/  # Abstract repository interfaces
-│       │   └── usecases/      # Application-specific logic
-│       │
-│       ├── application/       # Riverpod Providers & state
-│       │   ├── providers/     
-│       │   └── notifiers/     # StateNotifiers, AsyncNotifiers
-│       │
-│       └── presentation/      
-│           ├── pages/         # UI screens
-│           ├── widgets/       # Reusable widgets
-│           └── routes/        # go_router routes
-│
-├── app.dart                   # App root widget + go_router config
-├── main.dart                  # Entry point
-└── injection.dart             # Dependency injection setup
-
+| Section | Description | Details |
+|---------|-------------|---------|
+| **Overview** | Clean Architecture Principles | The project follows **Clean Architecture** with three main layers: **Presentation** (UI and user interactions), **Domain** (business logic, entities, repository interfaces), and **Data** (data sources, repository implementations). This ensures modularity, testability, and maintainability. |
+| **Project Structure** | `lib/` | Main directory containing all app code. |
+| | `core/` | Global utilities, themes, and configurations.<br>- `exceptions/`: Custom error handling.<br>- `network/`: Network-related utilities.<br>- `utils/`: Reusable utilities.<br>- `theme/`: App-wide themes and styles. |
+| | `features/` | Self-contained feature modules (e.g., `language_learning/`). |
+| | `features/language_learning/data/` | Data layer.<br>- `datasources/`: Remote and local data sources.<br>- `models/`: DTOs for API or local DB.<br>- `repositories/`: Repository implementations. |
+| | `features/language_learning/domain/` | Domain layer.<br>- `entities/`: Core business models.<br>- `repositories/`: Abstract repository interfaces.<br>- `usecases/`: Application-specific business logic. |
+| | `features/language_learning/application/` | Application layer.<br>- `providers/`: Riverpod providers.<br>- `notifiers/`: StateNotifiers and AsyncNotifiers for state management. |
+| | `features/language_learning/presentation/` | Presentation layer.<br>- `pages/`: UI screens.<br>- `widgets/`: Reusable UI components.<br>- `routes/`: go_router routes for navigation. |
+| | `app.dart` | App root widget and go_router configuration. |
+| | `main.dart` | Application entry point. |
+| | `injection.dart` | Dependency injection setup. |
+| **Tools & Technologies** | Error Monitoring | **Sentry**: Crash and error tracking in production. |
+| | Secure Storage | **flutter_secure_storage**: Store auth tokens securely on device. |
+| | Analytics | **Firebase Analytics**: Track user behavior to improve UX. |
+| | Testing | **mocktail, flutter_test, pytest**: Unit and integration testing for both frontend and backend. |
+| | Subscription System | **in_app_purchase + Django**: Premium feature unlock with backend verification. |
+| | Admin Panel | **Django Admin**: Manage users, content, grammar logs, etc. |
